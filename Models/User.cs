@@ -8,6 +8,6 @@
         public string Surname { get; set; }
         public string Email { get; set; }
         public string? Password { get; set; }
-        public virtual IEnumerable<Role> Roles { get; set; } = new List<Role>();
+        public virtual List<Role> Roles { get; set; } 
     }
 }

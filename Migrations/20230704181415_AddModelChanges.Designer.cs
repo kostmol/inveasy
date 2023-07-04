@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inveasy.Migrations
 {
     [DbContext(typeof(InveasyContext))]
-    [Migration("20230704175738_AddModelChanges")]
+    [Migration("20230704181415_AddModelChanges")]
     partial class AddModelChanges
     {
         /// <inheritdoc />

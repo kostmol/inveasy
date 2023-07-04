@@ -76,11 +76,12 @@ namespace Inveasy.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)                    
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Role", x => x.Id);
+                    table.PrimaryKey("PK_Role", x => x.Id);                    
                 });
 
             migrationBuilder.CreateTable(
@@ -178,7 +179,7 @@ namespace Inveasy.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_RewardTier_ProjectId",
                 table: "RewardTier",
-                column: "ProjectId");            
+                column: "ProjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_View_ProjectId",
