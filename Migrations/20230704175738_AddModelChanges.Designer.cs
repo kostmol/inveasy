@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inveasy.Migrations
 {
     [DbContext(typeof(InveasyContext))]
-    [Migration("20230704163109_AddModelChangesByTony")]
-    partial class AddModelChangesByTony
+    [Migration("20230704175738_AddModelChanges")]
+    partial class AddModelChanges
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,17 +59,12 @@ namespace Inveasy.Migrations
                     b.Property<int?>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
-
-                    b.HasIndex("RoleId");
 
                     b.HasIndex("UserId");
 
@@ -139,14 +134,9 @@ namespace Inveasy.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("RewardTier");
                 });
@@ -158,6 +148,10 @@ namespace Inveasy.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -215,17 +209,12 @@ namespace Inveasy.Migrations
                     b.Property<int?>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
-
-                    b.HasIndex("RoleId");
 
                     b.HasIndex("UserId");
 
@@ -237,10 +226,6 @@ namespace Inveasy.Migrations
                     b.HasOne("Inveasy.Models.Project", "Project")
                         .WithMany("Donations")
                         .HasForeignKey("ProjectId");
-
-                    b.HasOne("Inveasy.Models.Role", null)
-                        .WithMany("Donations")
-                        .HasForeignKey("RoleId");
 
                     b.HasOne("Inveasy.Models.User", "User")
                         .WithMany()
@@ -271,10 +256,6 @@ namespace Inveasy.Migrations
                     b.HasOne("Inveasy.Models.Project", null)
                         .WithMany("RewardsTier")
                         .HasForeignKey("ProjectId");
-
-                    b.HasOne("Inveasy.Models.Role", null)
-                        .WithMany("RewardsTier")
-                        .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("Inveasy.Models.Role", b =>
@@ -290,10 +271,6 @@ namespace Inveasy.Migrations
                         .WithMany("Views")
                         .HasForeignKey("ProjectId");
 
-                    b.HasOne("Inveasy.Models.Role", null)
-                        .WithMany("Views")
-                        .HasForeignKey("RoleId");
-
                     b.HasOne("Inveasy.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
@@ -304,15 +281,6 @@ namespace Inveasy.Migrations
                 });
 
             modelBuilder.Entity("Inveasy.Models.Project", b =>
-                {
-                    b.Navigation("Donations");
-
-                    b.Navigation("RewardsTier");
-
-                    b.Navigation("Views");
-                });
-
-            modelBuilder.Entity("Inveasy.Models.Role", b =>
                 {
                     b.Navigation("Donations");
 
