@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Inveasy.Data;
-using Inveasy.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<InveasyContext>(options =>
@@ -9,9 +8,6 @@ builder.Services.AddDbContext<InveasyContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-// Add service for users
-//builder.Services.AddScoped<UsersService>();
 
 var app = builder.Build();
 

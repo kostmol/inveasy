@@ -10,9 +10,5 @@
         public string TrendingScore { get; set; }
         public virtual User? User { get; set; }
         public virtual Category? Category { get; set; }
-        public virtual List<View>? Views { get; set; }
-        public virtual List<Donation>? Donations { get; set; }   
-        public virtual List<RewardTier>? RewardsTier { get; set; }
-
     }
 }
