@@ -144,10 +144,98 @@ namespace Inveasy.Services
 
         }        
 
+    //----- Project services ----- //
+        public async Task<Project> GetProject(string name) => await _context.Project.FirstOrDefaultAsync(p => p.Name == name);               
+        public async Task<Project> GetProject(int id) => await _context.Project.FirstOrDefaultAsync(p => p.Id == id);               
+        public async Task<Project> GetProjects(User user) => await _context.Project.FirstOrDefaultAsync(p => p.User == user);               
+        
+        public async Task<bool> AddProject(Project project)
+        {
+            try
+            {
+                await _context.Project.AddAsync(project);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateProject(string name, Project updateProject)
+        {
+            var projectToUpdate = await GetProject(name);
+            
+            if (projectToUpdate == null)
+                return false;
+
+            try
+            {
+                projectToUpdate = updateProject;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public async Task<bool> UpdateProject(int id, Project updateProject)
+        {
+            var projectToUpdate = await GetProject(id);
+            
+            if (projectToUpdate == null)
+                return false;
+
+            try
+            {
+                projectToUpdate = updateProject;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        
+        public async Task<bool> DeleteProject(string name)
+        {
+            var projectToDelete = await GetProject(name);
+
+            if (projectToDelete == null)
+                return false;
+
+            try
+            {
+                _context.Project.Remove(projectToDelete);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        
+        public async Task<bool> DeleteProject(int id)
+        {
+            var projectToDelete = await GetProject(id);
+
+            if (projectToDelete == null)
+                return false;
+
+            try
+            {
+                _context.Project.Remove(projectToDelete);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
-
-
-
-
-
 }
