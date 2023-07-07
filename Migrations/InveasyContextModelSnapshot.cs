@@ -150,12 +150,7 @@ namespace Inveasy.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Role");
                 });
@@ -218,6 +213,22 @@ namespace Inveasy.Migrations
                     b.ToTable("View");
                 });
 
+            modelBuilder.Entity("UserRole", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId", "UserId")
+                        .IsUnique();
+
+                    b.ToTable("UserRole", (string)null);
+                });
+
             modelBuilder.Entity("Inveasy.Models.Donation", b =>
                 {
                     b.HasOne("Inveasy.Models.Project", "Project")
@@ -255,13 +266,6 @@ namespace Inveasy.Migrations
                         .HasForeignKey("ProjectId");
                 });
 
-            modelBuilder.Entity("Inveasy.Models.Role", b =>
-                {
-                    b.HasOne("Inveasy.Models.User", null)
-                        .WithMany("Roles")
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("Inveasy.Models.View", b =>
                 {
                     b.HasOne("Inveasy.Models.Project", "Project")
@@ -277,6 +281,21 @@ namespace Inveasy.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("UserRole", b =>
+                {
+                    b.HasOne("Inveasy.Models.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Inveasy.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Inveasy.Models.Project", b =>
                 {
                     b.Navigation("Donations");
@@ -284,11 +303,6 @@ namespace Inveasy.Migrations
                     b.Navigation("RewardsTier");
 
                     b.Navigation("Views");
-                });
-
-            modelBuilder.Entity("Inveasy.Models.User", b =>
-                {
-                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }
