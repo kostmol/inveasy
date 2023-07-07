@@ -99,7 +99,8 @@ namespace Inveasy.Services
             try
             {
                 Role desiredRole = await _context.Role.FirstOrDefaultAsync(d => d.Id == roleId);               
-                if (desiredRole == null) return false; // Role with given id doesn't exist
+                if (desiredRole == null) 
+                    return false; // Role with given id doesn't exist
 
                 user.Roles.Add(desiredRole);
                 await _context.SaveChangesAsync();
@@ -261,7 +262,56 @@ namespace Inveasy.Services
         }
         #endregion
 
+        #region Project related services
+        // Method that returns list of all projects
+        public async Task<List<Project>> GetProjects() => await _context.Project.ToListAsync();
 
+        // Method that returns list of project with given project name
+        public async Task<List<Project>> GetProjectsByName(string name) => await _context.Project.Where(p => p.Name == name).ToListAsync();
+
+        // Method that returns a project with the given project id
+        public async Task<Project> GetProjectById(int id) => await _context.Project.FirstOrDefaultAsync(p => p.Id == id);        
+
+        // Method that adds project to db
+        public async Task<bool> AddProject(Project project)
+        {
+            if (GetProjectById(project.Id) != null)
+                return false; // Project already exists           
+
+            try
+            {
+                await _context.Project.AddAsync(project);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        // Method that updates project with given id
+        public async Task<bool> UpdateProject(int projectId, Project updatedProject)
+        {
+            // Get project
+            Project projectToUpdate = await GetProjectById(projectId);
+            
+            if (projectToUpdate == null)
+                return false; // Project doesn't exist
+
+            try
+            {
+                // Update project and save changes
+                projectToUpdate = updatedProject;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }        
+        #endregion
     }
 
 
