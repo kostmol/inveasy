@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inveasy.Migrations
 {
     [DbContext(typeof(InveasyContext))]
-    [Migration("20230707190157_AddModelChanges")]
+    [Migration("20230710111942_AddModelChanges")]
     partial class AddModelChanges
     {
         /// <inheritdoc />
@@ -42,6 +42,36 @@ namespace Inveasy.Migrations
                     b.ToTable("Category");
                 });
 
+            modelBuilder.Entity("Inveasy.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("dateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comment");
+                });
+
             modelBuilder.Entity("Inveasy.Models.Donation", b =>
                 {
                     b.Property<int>("Id")
@@ -56,10 +86,10 @@ namespace Inveasy.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ProjectId")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -79,32 +109,25 @@ namespace Inveasy.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FundAmount")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("FundAmount")
+                        .HasColumnType("float");
 
-                    b.Property<string>("FundGoal")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double?>("FundGoal")
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TrendingScore")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double?>("TrendingScore")
+                        .HasColumnType("float");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("UserId");
 
@@ -119,9 +142,8 @@ namespace Inveasy.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Amount")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -166,6 +188,9 @@ namespace Inveasy.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -175,6 +200,7 @@ namespace Inveasy.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
@@ -201,10 +227,10 @@ namespace Inveasy.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ProjectId")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -214,6 +240,22 @@ namespace Inveasy.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("View");
+                });
+
+            modelBuilder.Entity("ProjectCategory", b =>
+                {
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProjectId", "CategoryId");
+
+                    b.HasIndex("CategoryId", "ProjectId")
+                        .IsUnique();
+
+                    b.ToTable("ProjectCategory", (string)null);
                 });
 
             modelBuilder.Entity("UserRole", b =>
@@ -232,15 +274,38 @@ namespace Inveasy.Migrations
                     b.ToTable("UserRole", (string)null);
                 });
 
+            modelBuilder.Entity("Inveasy.Models.Comment", b =>
+                {
+                    b.HasOne("Inveasy.Models.Project", "Project")
+                        .WithMany("Comments")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Inveasy.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Inveasy.Models.Donation", b =>
                 {
                     b.HasOne("Inveasy.Models.Project", "Project")
                         .WithMany("Donations")
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Inveasy.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithMany("Donations")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Project");
 
@@ -249,15 +314,9 @@ namespace Inveasy.Migrations
 
             modelBuilder.Entity("Inveasy.Models.Project", b =>
                 {
-                    b.HasOne("Inveasy.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
-
                     b.HasOne("Inveasy.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-
-                    b.Navigation("Category");
 
                     b.Navigation("User");
                 });
@@ -273,15 +332,34 @@ namespace Inveasy.Migrations
                 {
                     b.HasOne("Inveasy.Models.Project", "Project")
                         .WithMany("Views")
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Inveasy.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithMany("Views")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Project");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ProjectCategory", b =>
+                {
+                    b.HasOne("Inveasy.Models.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Inveasy.Models.Project", null)
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UserRole", b =>
@@ -301,9 +379,20 @@ namespace Inveasy.Migrations
 
             modelBuilder.Entity("Inveasy.Models.Project", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Donations");
 
                     b.Navigation("RewardsTier");
+
+                    b.Navigation("Views");
+                });
+
+            modelBuilder.Entity("Inveasy.Models.User", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Donations");
 
                     b.Navigation("Views");
                 });

@@ -47,7 +47,30 @@ namespace Inveasy.Data
                         j.HasIndex("RoleId", "UserId").IsUnique();
                         j.ToTable("UserRole");
                     }
-                );            
+                );
+
+            modelBuilder.Entity<Project>()
+                .HasMany(s => s.Categories)
+                .WithMany()
+                .UsingEntity<Dictionary<string, string>>(
+                "ProjectCategory",
+                    j => j
+                        .HasOne<Category>()
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade),
+                    j => j
+                        .HasOne<Project>()
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade),
+                    j =>
+                    {
+                        j.HasKey("ProjectId", "CategoryId");
+                        j.HasIndex("CategoryId", "ProjectId").IsUnique();
+                        j.ToTable("ProjectCategory");
+                    }
+                );
         }
 
     }
