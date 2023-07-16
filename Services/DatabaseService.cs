@@ -59,7 +59,7 @@ namespace Inveasy.Services
         }                    
         #endregion
 
-        #region Projec GET services               
+        #region Project GET services               
         // Method that returns list of project with given project name
         public async Task<List<Project>> GetProjectsAsync(string projectName)
         {
@@ -267,6 +267,10 @@ namespace Inveasy.Services
                 return null;
             }
         }
+        #endregion
+
+        #region Category GET services
+
         #endregion
 
         #endregion
