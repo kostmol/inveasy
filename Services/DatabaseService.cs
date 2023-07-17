@@ -15,7 +15,7 @@ namespace Inveasy.Services
     public class DatabaseService
     {
         private readonly InveasyContext _context;
-        public string statusMessage = "DatabaseService initialized";
+        public string statusMessage = "DatabaseService initialized"; // ERROR: Internal error raised, WARNING: Something unexpected happened, EXCEPTION RAISED: an exception was raised
 
         public DatabaseService(InveasyContext context)
         {
@@ -53,6 +53,7 @@ namespace Inveasy.Services
             }
             catch(Exception ex) 
             {
+                statusMessage = $"EXCEPTION RAISED - Unable to fetch users: {ex.Message}";
                 return null;
             }
         }                    
@@ -92,6 +93,7 @@ namespace Inveasy.Services
             }
             catch (Exception ex)
             {
+                statusMessage = $"EXCEPTION RAISED - Unable to fetch projects: {ex.Message}";
                 return null;
             }
         }
@@ -136,8 +138,11 @@ namespace Inveasy.Services
         {
             // If user doesn't exist, do nothing
             if (user == null)
+            {
+                statusMessage = $"WARNING - Unable to fetch donations: Null user";
                 return null;
-
+            }
+                
             var donations = await GetDonationsAsync();
             return donations?.Where(d => d.User.Id == user.Id).ToList();
         }
@@ -153,6 +158,7 @@ namespace Inveasy.Services
             }
             catch (Exception ex)
             {
+                statusMessage = $"EXCEPTION RAISED - Unable to fetch donations: {ex.Message}";
                 return null;
             }
         }
@@ -177,8 +183,11 @@ namespace Inveasy.Services
         {
             // If user doesn't exist, do nothing
             if (user == null)
+            {
+                statusMessage = $"WARNING - Unable to fetch views: Null user";
                 return null;
-
+            }
+                
             var views = await GetViewsAsync();
             return views?.Where(d => d.User.Id == user.Id).ToList();
         }
@@ -194,6 +203,7 @@ namespace Inveasy.Services
             }
             catch(Exception ex)
             {
+                statusMessage = $"EXCEPTION RAISED - Unable to fetch views: {ex.Message}";
                 return null;
             }
         }
@@ -217,7 +227,10 @@ namespace Inveasy.Services
         {
             // If user doesn't exist, do nothing
             if (user == null)
+            {
+                statusMessage = $"WARNING - Unable to fetch comments: Null user";
                 return null;
+            }                
 
             var comments = await GetCommentsAsync();
             return comments?.Where(d => d.User.Id == user.Id).ToList();
@@ -235,6 +248,7 @@ namespace Inveasy.Services
             }
             catch (Exception ex)
             {
+                statusMessage = $"EXCEPTION RAISED - Unable to fetch comments: {ex.Message}";
                 return null;
             }
         }
@@ -263,6 +277,7 @@ namespace Inveasy.Services
             }
             catch (Exception ex)
             {
+                statusMessage = $"EXCEPTION RAISED - Unable to fetch roles: {ex.Message}";
                 return null;
             }
         }
@@ -290,6 +305,7 @@ namespace Inveasy.Services
             }
             catch (Exception ex)
             {
+                statusMessage = $"EXCEPTION RAISED - Unable to fetch categories: {ex.Message}";
                 return null;
             }
         }
@@ -303,20 +319,31 @@ namespace Inveasy.Services
         // Method to add a new user
         public async Task<bool> AddUserAsync(User user)
         {
+            if (user == null)
+            {
+                statusMessage = $"ERROR - Null user can't be added";
+                return false; // User already exists                                
+            }
+
             User userToAdd = await GetUserAsync(user.Username);
 
             if (userToAdd != null)
+            {
+                statusMessage = $"ERROR - User {userToAdd.Username} with id {userToAdd.Id} could not be added: User already exists";
                 return false; // User already exists                                
+            }                
 
             try
             {
                 // Adding given user
                 await _context.User.AddAsync(user);
                 await _context.SaveChangesAsync();
+                statusMessage = $"SUCCESS - User {user.Name} succesfully added to database";
                 return true;
             }
             catch (Exception ex)
             {
+                statusMessage += $"EXCEPTION RAISED - User {user.Username} with id {user.Id} could not be added: {ex.Message}";
                 return false;
             }
         }
@@ -330,10 +357,12 @@ namespace Inveasy.Services
             {
                 await _context.Project.AddAsync(project);
                 await _context.SaveChangesAsync();
+                statusMessage = $"SUCCESS - Project {project.Name} succesfully added to database";
                 return true;
             }
             catch (Exception ex)
             {
+                statusMessage = $"EXCEPTION RAISED - Unable to fetch roles: {ex.Message}";
                 return false;
             }
         }
@@ -349,17 +378,23 @@ namespace Inveasy.Services
         public async Task<bool> AddDonationAsync(int projectId, int userId, double donationAmount) => await AddDonationAsync(await GetProjectAsync(projectId), await GetUserAsync(userId), donationAmount);        
 
         public async Task<bool> AddDonationAsync(Project project, User user, double donationAmount)
-        {
+        {            
             if (project == null)
-                return false; // Given project doesn't exist
+            {
+                statusMessage = $"WARNING - Unable to add donation: Null project";
+                return false; 
+            }                
 
             if (user == null)
-                return false; // Given user doesn't exist
+            {
+                statusMessage = $"WARNING - Unable to add donation: Null user";
+                return false;
+            }                
 
             // Create Donation
             Donation donation = new Donation
             {
-                Amount = donationAmount,
+                Amount = Math.Round(donationAmount, 2),
                 Date = DateTime.Now,
                 User = user,
                 Project = project
@@ -373,6 +408,7 @@ namespace Inveasy.Services
             // Add donation amount to project
             project.FundAmount += donationAmount;
 
+            statusMessage = $"SUCCESS - Donation of {donation.Amount} by user {user.Username} given to project {project.Name} succesfully added to database";
             return true;
         }
 
@@ -380,7 +416,10 @@ namespace Inveasy.Services
         {
             // Don't allow empty or negative donations
             if (donation.Amount <= 0)
+            {
+                statusMessage = $"ERROR - Unable to add donation: Donation amount is less or equal to zero";
                 return false;
+            }
 
             try
             {
@@ -391,6 +430,7 @@ namespace Inveasy.Services
             }
             catch (Exception ex)
             {
+                statusMessage = $"EXCEPTION RAISED - Unable to add donation: {ex.Message}";
                 return false;
             }
         }
@@ -410,10 +450,16 @@ namespace Inveasy.Services
         public async Task<bool> AddViewAsync(Project project, User user)
         {
             if (project == null)
-                return false; // Given project doesn't exist
+            {
+                statusMessage = $"WARNING - Unable to add view: Null project";
+                return false;
+            }                
 
             if (user == null)
-                return false; // Given user doesn't exist
+            {
+                statusMessage = $"WARNING - Unable to add view: Null user";
+                return false;
+            }                
 
             // Create View
             View view = new View
@@ -428,6 +474,7 @@ namespace Inveasy.Services
             if(!viewAdded)
                 return false;
 
+            statusMessage = $"SUCCESS - View of {project.Name} by user {user.Username} succesfully added to database";
             return true;
         }
 
@@ -442,6 +489,7 @@ namespace Inveasy.Services
             }
             catch (Exception ex)
             {
+                statusMessage = $"EXCEPTION RAISED - Unable to add view: {ex.Message}";
                 return false;
             }
         }
@@ -467,10 +515,16 @@ namespace Inveasy.Services
         public async Task<bool> AddCommentAsync(Project project, User user, string commentText)
         {
             if (project == null)
-                return false; // Given project doesn't exist
+            {
+                statusMessage = $"WARNING - Unable to add comment: Null user";
+                return false;
+            }                
 
             if (user == null)
-                return false; // Given user doesn't exist
+            {
+                statusMessage = $"WARNING - Unable to add comment: Null project";
+                return false;
+            }                
 
             // Create comment
             Comment comment = new Comment
@@ -486,6 +540,7 @@ namespace Inveasy.Services
             if(!commentAdded)
                 return false;
 
+            statusMessage = $"SUCCESS - Comment of {project.Name} by user {user.Username} succesfully added to database";
             return true;
         }
 
@@ -494,12 +549,18 @@ namespace Inveasy.Services
             try
             {
                 if(comment == null)
+                {
+                    statusMessage = $"ERROR - Unable to add comment: Null comment";
                     return false;
+                }                    
                 
                 // Don't allow empty comments and comments over 500 characters 
                 if (comment.Text.Length > 500 || comment.Text.IsNullOrEmpty())
+                {
+                    statusMessage = $"ERROR - Unable to add comment: Comment text is empty or over 500 characters";
                     return false;
-
+                }
+                    
                 // Store comment
                 _context.Comment.AddAsync(comment);
                 await _context.SaveChangesAsync();
@@ -507,6 +568,7 @@ namespace Inveasy.Services
             }
             catch (Exception ex)
             {
+                statusMessage = $"EXCEPTION RAISED - Unable to add comment: {ex.Message}";
                 return false;
             }
         }
@@ -526,13 +588,22 @@ namespace Inveasy.Services
         public async Task<bool> UpdateUserAsync(User userToUpdate, User updatedUser)
         {
             // If user doesn't exist, do nothing
-            if (userToUpdate == null)
+            if (userToUpdate == null || updatedUser == null)
+            {
+                statusMessage = $"WARNING - Unable to update user: Null user";
                 return false;
-
+            }
+                
             try
             {
+                List<string> updatedFields = new List<string>;
+
                 // Update user and save changes
-                if(updatedUser.Username != null) userToUpdate.Username = updatedUser.Username;
+                if (updatedUser.Username != null) 
+                {
+                    userToUpdate.Username = updatedUser.Username;
+                    updatedFields.Add("username");
+                }                
                 if(updatedUser.Password != null) userToUpdate.Password = updatedUser.Password;
                 if (updatedUser.Email != null) userToUpdate.Email = updatedUser.Email;
                 if (updatedUser.Name != null) userToUpdate.Name = updatedUser.Name;
@@ -545,6 +616,7 @@ namespace Inveasy.Services
             }
             catch (Exception ex)
             {
+                statusMessage = $"EXCEPTION RAISED - Unable to update user: {ex.Message}";
                 return false;
             }
         }
