@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Inveasy.Data;
 using Inveasy.Services;
+using Inveasy.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<InveasyContext>(options =>
@@ -34,9 +35,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapControllerRoute(
-    name: "program",
-    pattern: "{controller=Home}/{action=project}/{id?}");
-
+app.MapUserEndpoints();
 
 app.Run();
