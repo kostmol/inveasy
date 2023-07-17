@@ -11,6 +11,7 @@
     <link href="~/css/home.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/project.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/login.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/profile.css" rel="stylesheet" asp-append-version="true" />
     <link rel="stylesheet" href="~/Inveasy.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -80,7 +81,7 @@
                                 Username
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                            	<li><a class="dropdown-item" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="#">My projects</a></li>
                                 <li><hr class="dropdown-divider"></li>

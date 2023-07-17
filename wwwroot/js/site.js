@@ -7,9 +7,12 @@ function trigger() {
 }
 
 function fileHandler(e) {
-    const file = this.files[0]
+    const file = e.target.files[0]
     document.getElementById('avatar').src = URL.createObjectURL(file)
 }
 
 const image = document.getElementById('avatar')
 image.addEventListener("mouseup", trigger)
+
+const fileInput = document.getElementById('attachment')
+fileInput.addEventListener('input', fileHandler);

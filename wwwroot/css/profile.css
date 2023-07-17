@@ -1,0 +1,22 @@
+﻿.avatar {
+    vertical-align: middle;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.avatar:hover {
+    cursor: pointer;
+    filter: blur(2px);
+}
+
+.banner {
+    text-align: center;
+}
+.image {
+    object-fit: cover;
+}
+
+.is-hidden {
+    display: none;
+}
