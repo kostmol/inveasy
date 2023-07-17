@@ -22,7 +22,6 @@ namespace Inveasy.Services
             _context = context;
         }
 
-
         #region GET services
 
         #region User GET services
@@ -245,22 +244,22 @@ namespace Inveasy.Services
         #region Role GET services
         // Method that return role from given role id
         public async Task<Role> GetRoleAsync(int roleId)
-        {
-            try
-            {
-                return _context.Role.FirstOrDefault(d => d.Id == roleId);
-            }
-            catch(Exception ex)
-            {
-                return null;
-            }
+        {            
+            var roles = await GetRolesAsync(); 
+            return roles?.FirstOrDefault(d => d.Id == roleId);            
         }
 
         public async Task<Role> GetRoleAsync(string roleName)
         {
+            var roles = await GetRolesAsync();
+            return roles?.FirstOrDefault(d => d.Name == roleName);
+        }
+
+        public async Task<List<Role>> GetRolesAsync()
+        {
             try
             {
-                return _context.Role.FirstOrDefault(d => d.Name == roleName);
+                return await _context.Role.ToListAsync();
             }
             catch (Exception ex)
             {
@@ -270,7 +269,30 @@ namespace Inveasy.Services
         #endregion
 
         #region Category GET services
+        // Method that return role from given role id
+        public async Task<Category> GetCategoryAsync(int categoryId)
+        {
+            var categories = await GetCategoriesAsync();
+            return categories?.FirstOrDefault(d => d.Id == categoryId);
+        }
 
+        public async Task<Category> GetCategoryAsync(string categoryName)
+        {
+            var categories = await GetCategoriesAsync();
+            return categories?.FirstOrDefault(d => d.Name == categoryName);
+        }
+
+        public async Task<List<Category>> GetCategoriesAsync()
+        {
+            try
+            {
+                return await _context.Category.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         #endregion
 
         #endregion
@@ -318,36 +340,50 @@ namespace Inveasy.Services
         #endregion
 
         #region Donation ADD services
-        public async Task<bool> AddDonationAsync(int projectId, int userId, double donationAmount)
+        public async Task<bool> AddDonationAsync(int projectId , string username, double donationAmount) => await AddDonationAsync(await GetProjectAsync(projectId), await GetUserAsync(username), donationAmount);
+
+        public async Task<bool> AddDonationAsync(Project project, string username, double donationAmount) => await AddDonationAsync(project, await GetUserAsync(username), donationAmount);
+        
+        public async Task<bool> AddDonationAsync(Project project, int userId, double donationAmount) => await AddDonationAsync(project, await GetUserAsync(userId), donationAmount);
+
+        public async Task<bool> AddDonationAsync(int projectId, int userId, double donationAmount) => await AddDonationAsync(await GetProjectAsync(projectId), await GetUserAsync(userId), donationAmount);        
+
+        public async Task<bool> AddDonationAsync(Project project, User user, double donationAmount)
         {
-            // Get project 
-            Project project = await GetProjectAsync(projectId);
             if (project == null)
-                return false; // Project with given id doesn't exist
+                return false; // Given project doesn't exist
 
-            // Get user
-            User user = await GetUserAsync(userId);
             if (user == null)
-                return false; // User with given id doesn't exist
+                return false; // Given user doesn't exist
 
-            // Don't allow empty donations
-            if (donationAmount <= 0)
+            // Create Donation
+            Donation donation = new Donation
+            {
+                Amount = donationAmount,
+                Date = DateTime.Now,
+                User = user,
+                Project = project
+            };
+
+            var donationAdded = await AddDonationAsync(donation);
+
+            if (!donationAdded) 
+                return false;
+
+            // Add donation amount to project
+            project.FundAmount += donationAmount;
+
+            return true;
+        }
+
+        public async Task<bool> AddDonationAsync(Donation donation)
+        {
+            // Don't allow empty or negative donations
+            if (donation.Amount <= 0)
                 return false;
 
             try
             {
-                // Add donation amount to project
-                project.FundAmount += donationAmount;
-
-                // Create Donation
-                Donation donation = new Donation
-                {
-                    Amount = donationAmount,
-                    Date = DateTime.Now,
-                    User = user,
-                    Project = project
-                };
-
                 // Store Donation
                 _context.Donation.AddAsync(donation);
                 await _context.SaveChangesAsync();
@@ -361,28 +397,44 @@ namespace Inveasy.Services
         #endregion
 
         #region View ADD services
-        public async Task<bool> AddViewAsync(int projectId, int userId)
+        public async Task<bool> AddViewAsync(Project project, int userId) => await AddViewAsync(project, await GetUserAsync(userId));
+
+        public async Task<bool> AddViewAsync(Project project, string username) => await AddViewAsync(project, await GetUserAsync(username));
+
+        public async Task<bool> AddViewAsync(int projectId, User user) => await AddViewAsync(await GetProjectAsync(projectId), user);
+
+        public async Task<bool> AddViewAsync(int projectId, string username) => await AddViewAsync(await GetProjectAsync(projectId), await GetUserAsync(username));
+
+        public async Task<bool> AddViewAsync(int projectId, int userId) => await AddViewAsync(await GetProjectAsync(projectId), await GetUserAsync(userId));
+
+        public async Task<bool> AddViewAsync(Project project, User user)
         {
-            // Get project 
-            Project project = await GetProjectAsync(projectId);
             if (project == null)
-                return false; // Project with given id doesn't exist
+                return false; // Given project doesn't exist
 
-            // Get user
-            User user = await GetUserAsync(userId);
             if (user == null)
-                return false; // User with given id doesn't exist
+                return false; // Given user doesn't exist
 
-            try
+            // Create View
+            View view = new View
             {
-                // Create View
-                View view = new View
-                {
-                    Date = DateTime.Now,
-                    User = user,
-                    Project = project
-                };
+                Date = DateTime.Now,
+                User = user,
+                Project = project
+            };
 
+            var viewAdded = await AddViewAsync(view);
+
+            if(!viewAdded)
+                return false;
+
+            return true;
+        }
+
+        public async Task<bool> AddViewAsync(View view)
+        {
+            try 
+            { 
                 // Store View
                 _context.View.AddAsync(view);
                 await _context.SaveChangesAsync();
@@ -393,35 +445,60 @@ namespace Inveasy.Services
                 return false;
             }
         }
+
         #endregion
 
         #region Comment ADD services
-        public async Task<bool> AddProjectCommentAsync(int projectId, int userId, string commentText)
+        public async Task<bool> AddCommentAsync(int projectId, User user, string commentText)
+            => await AddCommentAsync(await GetProjectAsync(projectId), user, commentText);
+
+        public async Task<bool> AddCommentAsync(Project project, int userId, string commentText)
+            => await AddCommentAsync(project, await GetUserAsync(userId), commentText);
+
+        public async Task<bool> AddCommentAsync(Project project , string username, string commentText)
+            => await AddCommentAsync(project, await GetUserAsync(username), commentText);
+
+        public async Task<bool> AddCommentAsync(int projectId, string username, string commentText)
+            => await AddCommentAsync(await GetProjectAsync(projectId), await GetUserAsync(username), commentText);
+
+        public async Task<bool> AddCommentAsync(int projectId, int userId, string commentText) 
+            => await AddCommentAsync(await GetProjectAsync(projectId), await GetUserAsync(userId), commentText);
+            
+        public async Task<bool> AddCommentAsync(Project project, User user, string commentText)
         {
-            // Get project 
-            Project project = await GetProjectAsync(projectId);
             if (project == null)
-                return false; // Project with given id doesn't exist
+                return false; // Given project doesn't exist
 
-            // Get user
-            User user = await GetUserAsync(userId);
             if (user == null)
-                return false; // User with given id doesn't exist
+                return false; // Given user doesn't exist
 
-            // Don't allow empty comments and comments over 500 characters 
-            if (commentText.Length > 500 || commentText.IsNullOrEmpty())
+            // Create comment
+            Comment comment = new Comment
+            {
+                Text = commentText,
+                dateTime = DateTime.Now,
+                User = user,
+                Project = project
+            };
+
+            var commentAdded = await AddCommentAsync(comment);
+
+            if(!commentAdded)
                 return false;
 
+            return true;
+        }
+
+        public async Task<bool> AddCommentAsync(Comment comment)
+        {            
             try
             {
-                // Create comment
-                Comment comment = new Comment
-                {
-                    Text = commentText,
-                    dateTime = DateTime.Now,
-                    User = user,
-                    Project = project
-                };
+                if(comment == null)
+                    return false;
+                
+                // Don't allow empty comments and comments over 500 characters 
+                if (comment.Text.Length > 500 || comment.Text.IsNullOrEmpty())
+                    return false;
 
                 // Store comment
                 _context.Comment.AddAsync(comment);
@@ -633,7 +710,13 @@ namespace Inveasy.Services
         #endregion
 
         #region Comment UPDATE/DELETE services
-        // Method that updates comment from given comment id
+        // Method that updates comment from given comment and given comment text
+        public async Task<bool> UpdateComment(Comment commentToUpdate, string commentText) => await UpdateComment(commentToUpdate, new Comment { Text = commentText });
+
+        // Method that updates comment from given comment id and given comment text
+        public async Task<bool> UpdateComment(int commentId, string commentText) => await UpdateComment(await GetCommentAsync(commentId), new Comment { Text = commentText});
+
+        // Method that updates comment from given comment id and given comment
         public async Task<bool> UpdateComment(int commentId, Comment updatedComment) => await UpdateComment(await GetCommentAsync(commentId), updatedComment);
 
         // Method that updates given comment
@@ -641,6 +724,9 @@ namespace Inveasy.Services
         {
             if (commentToUpdate == null)
                 return false; // Comment doesn't exist
+
+            if (commentToUpdate.Text.IsNullOrEmpty())
+                return false; // Comment text is empty or null
 
             try
             {
@@ -657,7 +743,6 @@ namespace Inveasy.Services
         }
 
         public async Task<bool> DeleteCommentAsync(int commentId) => await DeleteCommentAsync(await GetCommentAsync(commentId));
-
 
         public async Task<bool> DeleteCommentAsync(Comment commentToDelete)
         {            
