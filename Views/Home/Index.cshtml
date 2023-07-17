@@ -1,8 +1,91 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inveasy | Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class=" container-fluid text-center">
+
+    <hr>
+
+    <div class="row">
+        <h2 class="d-flex justify-content-center dark-grey-500">Inveasy statistics</h2>
+        <div class="col py2 px4 py4-sm border">
+            <h3 class="type-24 type-28-md type-34-lg ksr-green-700">0</h3>
+            <h4 class="type-14 dark-grey-500 text-lowercase">projects funded</h4>
+        </div>
+        <div class="col py2 px4 py4-sm border">
+            <h3 class="type-24 type-28-md type-34-lg ksr-green-700">0$</h3>
+            <h4 class="type-14 dark-grey-500 text-lowercase">towards upcoming creators</h4>
+        </div>
+        <div class="col py2 px4 py4-sm border">
+            <h3 class="type-24 type-28-md type-34-lg ksr-green-700">0</h3>
+            <h4 class="type-14 dark-grey-500 text-lowercase">backers</h4>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <!--Most popular project of all-->
+        <h5 class="d-flex justify-content-start dark-grey-500">Featured Project</h5>
+        <div class="d-flex justify-content-start card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="~/images/default_pic.jpg" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                        <a asp-controller="Project" asp-action="Index" class="btn btn-dark">See more...</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <h5 class="d-flex justify-content-start dark-grey-500">Popular Projects</h5>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col">
+            <div class="card">
+                <img src="~/images/default_pic.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <button href="#" class="btn btn-dark">See more...</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="~/images/default_pic.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <button href="#" class="btn btn-dark">See more...</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="~/images/default_pic.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                    <button href="#" class="btn btn-dark">See more...</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="~/images/default_pic.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <button href="#" class="btn btn-dark">See more...</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
