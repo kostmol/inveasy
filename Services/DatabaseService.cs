@@ -596,7 +596,7 @@ namespace Inveasy.Services
                 
             try
             {
-                List<string> updatedFields = new List<string>;
+                List<string> updatedFields = new List<string>();
 
                 // Update user and save changes
                 if (updatedUser.Username != null) 
