@@ -1,6 +1,6 @@
 @model Inveasy.Views.Home.projectModel
 @{
-    ViewData["Title"] = "Inveasy | Project";
+    ViewData["Title"] = "Project | Inveasy";
 }
 
 <div class="row">
@@ -48,7 +48,6 @@
                 <div class="card-footer d-flex justify-content-between">
                     <div class="text-muted"> <i class="fa-regular fa-clock"></i> Backers: num</div>
                     <div class="text-muted"> <i class="fa-regular fa-clock"></i> Date posted: DD/MM/YYYY</div>
-                    <div class="text-muted"> <i class="fa-regular fa-clock"></i> Days remaining: XX days</div>
                 </div>
             </div>
         </div>
@@ -80,51 +79,104 @@
         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
             <div class="form-check">
                 <i class="fa fa-check"></i>This
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                <label class="form-check-label" for="flexCheckChecked">
-                    This
-                </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                <label class="form-check-label" for="flexCheckChecked">
-                    is
-                </label>
+                <i class="fa fa-check"></i>is
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                <label class="form-check-label" for="flexCheckChecked">
-                    an
-                </label>
+                <i class="fa fa-check"></i>an
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                <label class="form-check-label" for="flexCheckChecked">
-                    example
-                </label>
+                <i class="fa fa-check"></i>example
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                <label class="form-check-label" for="flexCheckChecked">
-                    for
-                </label>
+                <i class="fa fa-check"></i>for
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                <label class="form-check-label" for="flexCheckChecked">
-                    the
-                </label>
+                <i class="fa fa-check"></i>the
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                <label class="form-check-label" for="flexCheckChecked">
-                    rewards
-                </label>
+                <i class="fa fa-check"></i>rewards
+            </div>
+
+            <!--Fund button-->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+            Open Modal
+        </button>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Modal Title</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <p>This is the modal content.</p>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">...</div>
+        </div>
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
+            <div class="form-check">
+                <i class="fa fa-check"></i>This
+            </div>
+            <div class="form-check">
+                <i class="fa fa-check"></i>is
+            </div>
+            <div class="form-check">
+                <i class="fa fa-check"></i>an
+            </div>
+            <div class="form-check">
+                <i class="fa fa-check"></i>example
+            </div>
+            <div class="form-check">
+                <i class="fa fa-check"></i>for
+            </div>
+            <div class="form-check">
+                <i class="fa fa-check"></i>the
+            </div>
+            <div class="form-check">
+                <i class="fa fa-check"></i>rewards
+            </div>
+        </div>
         <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab" tabindex="0">...</div>
-        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">...</div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">
+            <div class="form-check">
+                <i class="fa fa-check"></i>This
+            </div>
+            <div class="form-check">
+                <i class="fa fa-check"></i>is
+            </div>
+            <div class="form-check">
+                <i class="fa fa-check"></i>an
+            </div>
+            <div class="form-check">
+                <i class="fa fa-check"></i>example
+            </div>
+            <div class="form-check">
+                <i class="fa fa-check"></i>for
+            </div>
+            <div class="form-check">
+                <i class="fa fa-check"></i>the
+            </div>
+            <div class="form-check">
+                <i class="fa fa-check"></i>rewards
+            </div>
+        </div>
         <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">...</div>
     </div>
 
@@ -154,3 +206,4 @@
     </div>
 
 </div>
+

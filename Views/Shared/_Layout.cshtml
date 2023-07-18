@@ -37,55 +37,57 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Popular Projects</a>
+                        <a class="nav-link" asp-controller="Popularity" asp-action="Index">Popular Projects</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tags</a>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" id="tags" href="#">Technology</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Film & Video</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Music</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Arts</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Games</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Publishing</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Design</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Food & Beverage</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Crafts & DIY</a></li>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Tags
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" id="side">
+                            <li><a class="dropdown-item" asp-controller="Category" asp-action="Index">Arts</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Commerce</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Health & Fitness</a></li>
+                            <li><a class="dropdown-item" href="#">Crafts & DIY</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Fashion & Apparel</a></li>
+                            <li><a class="dropdown-item" href="#">Design</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Education</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Sports & Recreation</a></li>
+                            <li><a class="dropdown-item" href="#">Fashion & Apparel</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Film & Video</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Food & Beverage</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Games</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Health & Fitness</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Music</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Publishing</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Social Causes</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Sports & Recreation</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Technology</a></li>
                         </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Username
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-dark">
+                        <ul class="dropdown-menu dropdown-menu-dark" id="side">
                                 <li><a class="dropdown-item" href="#">Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="#">My projects</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" asp-controller="CreateProject" asp-action="Index">Create Project</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -116,12 +118,15 @@
                         </div>
 
                         </li>
+                        <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" asp-controller="Admin" asp-action="Index">Admin</a>
+                        </li>
                     </ul>
                     
                 </div>
             </div>
 
-            <a href="{% url 'home' %}" class="navbar-brand">
+            <a asp-controller="Home" asp-action="Index" class="navbar-brand">
                 &ensp;
                 <img src="~/images/logo_d2.png" class="d-inline-block  align-text-top" style="height:100px; width:160px; border:none;" alt="CoolBrand">
             </a>
@@ -132,20 +137,10 @@
             
             <form class="d-flex mt-3" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-light" type="submit">Search</button>
+                <a asp-controller="Search" asp-action="Index" class="btn btn-outline-light" type="submit">Search</a>
             </form>
     </nav>
 
-    <div class="container-fluid">
-        <div id="mySidenav" class="sidenav" style="position:fixed;">
-            <a href="#">Inveasy</a>
-            <a href="#">Tags</a>
-            <a href="#">Popular Projects</a>
-            <a href="#">User profile</a>
-            <a href="#">Log in/out</a>
-        </div>
-        
-    </div>
     <div class="container">
         <main role="main" class="pb-3"> 
             @RenderBody()
@@ -160,32 +155,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#openSidebarBtn').click(function () {
-                $('#mySidenav').toggle();
-            });
-        });
-    </script>
-    <script>
-        function openCloseNav() {
-            var element = document.getElementById("mySidenav");
-            if (element.style.width == "250px") {
-                element.style.width = "0px";
-            } else {
-                element.style.width = "250px";
-            }
-        }
-    </script>
-
-    <script>
-        document.addEventListener('mouseup', function (e) {
-            var container = document.getElementById('mySidenav');
-            if (!container.contains(e.target)) {
-                container.style.width = "0px";
-            }
-        });
-    </script>
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

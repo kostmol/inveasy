@@ -17,6 +17,20 @@ namespace Inveasy.Controllers
         {
             return View();
         }
+        public IActionResult project()
+        {
+            return View();
+        }
+
+        public IActionResult Category()
+        {
+            return View();
+        }
+
+        public IActionResult Popularity()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {

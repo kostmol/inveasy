@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Inveasy | Home";
+    ViewData["Title"] = "Home | Inveasy";
 }
 
 <div class=" container-fluid text-center">
@@ -45,7 +45,18 @@
 
     <hr />
 
-    <h5 class="d-flex justify-content-start dark-grey-500">Popular Projects</h5>
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex justify-content-start">
+                <h5 class=" dark-grey-500">Popular Projects</h5>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <a asp-controller="Popularity" asp-action="Index" class="btn btn-dark">See more...</a>
+            </div>
+        </div>
+    </div>
+
+
     <div class="row row-cols-1 row-cols-md-4 g-4">
         <div class="col">
             <div class="card">
