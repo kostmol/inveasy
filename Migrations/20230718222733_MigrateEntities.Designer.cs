@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inveasy.Migrations
 {
     [DbContext(typeof(InveasyContext))]
-    [Migration("20230710111942_AddModelChanges")]
-    partial class AddModelChanges
+    [Migration("20230718222733_MigrateEntities")]
+    partial class MigrateEntities
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,9 @@ namespace Inveasy.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
@@ -59,9 +62,6 @@ namespace Inveasy.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("dateTime")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -83,7 +83,7 @@ namespace Inveasy.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ProjectId")
@@ -101,6 +101,28 @@ namespace Inveasy.Migrations
                     b.ToTable("Donation");
                 });
 
+            modelBuilder.Entity("Inveasy.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<byte[]>("ImageData")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("Image");
+                });
+
             modelBuilder.Entity("Inveasy.Models.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -108,6 +130,9 @@ namespace Inveasy.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -191,9 +216,15 @@ namespace Inveasy.Migrations
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -212,6 +243,8 @@ namespace Inveasy.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
 
                     b.ToTable("User");
                 });
@@ -312,6 +345,13 @@ namespace Inveasy.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Inveasy.Models.Image", b =>
+                {
+                    b.HasOne("Inveasy.Models.Project", null)
+                        .WithMany("Images")
+                        .HasForeignKey("ProjectId");
+                });
+
             modelBuilder.Entity("Inveasy.Models.Project", b =>
                 {
                     b.HasOne("Inveasy.Models.User", "User")
@@ -326,6 +366,15 @@ namespace Inveasy.Migrations
                     b.HasOne("Inveasy.Models.Project", null)
                         .WithMany("RewardsTier")
                         .HasForeignKey("ProjectId");
+                });
+
+            modelBuilder.Entity("Inveasy.Models.User", b =>
+                {
+                    b.HasOne("Inveasy.Models.Image", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
+                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("Inveasy.Models.View", b =>
@@ -382,6 +431,8 @@ namespace Inveasy.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Donations");
+
+                    b.Navigation("Images");
 
                     b.Navigation("RewardsTier");
 

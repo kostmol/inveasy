@@ -107,7 +107,7 @@ namespace Inveasy.Services.CommentServices
             Comment comment = new Comment
             {
                 Text = commentText,
-                dateTime = DateTime.Now,
+                DateTime = DateTime.Now,
                 User = user,
                 Project = project
             };

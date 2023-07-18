@@ -1,4 +1,6 @@
-﻿namespace Inveasy.Models
+﻿using System.Reflection.Metadata;
+
+namespace Inveasy.Models
 {
     public class User
     {
@@ -13,7 +15,8 @@
         public virtual List<Donation>? Donations { get; set; }
         public virtual List<View>? Views { get; set; }
         public virtual List<Comment>? Comments { get; set; }
-        public virtual DateTime CreatedDate { get; }
+        public virtual DateTime CreatedDate { set;  get; }
+        public virtual Image? Image { set; get; }
 
     }
 }

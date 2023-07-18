@@ -102,7 +102,7 @@ namespace Inveasy.Services.DonationServices
             Donation donation = new Donation
             {
                 Amount = Math.Round(donationAmount, 2),
-                Date = DateTime.Now,
+                DateTime = DateTime.Now,
                 User = user,
                 Project = project
             };

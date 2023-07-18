@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Inveasy.Data;
 using Inveasy.Services;
 using Inveasy.Controllers;
+using Inveasy.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<InveasyContext>(options =>
@@ -12,7 +13,7 @@ builder.Services.AddDbContext<InveasyContext>(options =>
 builder.Services.AddDatabaseServices();
 
 // Add service for status messages
-builder.Services.AddScoped<ServiceStatus>();
+builder.Services.AddStatusServices();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

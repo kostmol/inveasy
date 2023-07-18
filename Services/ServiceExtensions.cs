@@ -20,5 +20,17 @@ namespace Inveasy.Services
             services.AddScoped<IViewService, ViewService>();
             services.AddScoped<ICommentService, CommentService>();            
         }
+
+        public static void AddStatusServices(this IServiceCollection services)
+        {
+            services.AddScoped(_ => new ServiceStatus(""));
+            services.AddScoped<ServiceStatus.UserStatus>();
+            services.AddScoped<ServiceStatus.RoleStatus>();
+            services.AddScoped<ServiceStatus.ProjectStatus>();
+            services.AddScoped<ServiceStatus.CategoryStatus>();
+            services.AddScoped<ServiceStatus.DonationStatus>();
+            services.AddScoped<ServiceStatus.ViewStatus>();
+            services.AddScoped<ServiceStatus.CommentStatus>();
+        }
     }
 }
