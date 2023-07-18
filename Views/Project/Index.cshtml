@@ -66,69 +66,72 @@
 </div>
 <hr />
 <div class="container row justify-content-between d-flex align-items-start">
-    <div class="nav flex-column col-3 nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <button class="nav-link text-bg-secondary active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Tier 1</button>
-        <button class="nav-link text-bg-secondary" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Tier 2</button>
-        <button class="nav-link text-bg-secondary" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled" type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false">Tier 3</button>
-        <button class="nav-link text-bg-secondary" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Tier 4</button>
-        <button class="nav-link text-bg-secondary" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Tier 5</button>
+    <div class="nav flex-column col-2 nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <button class="nav-link text-bg-dark active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Tier 1</button>
+        <button class="nav-link text-bg-dark" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Tier 2</button>
+        <button class="nav-link text-bg-dark" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled" type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false">Tier 3</button>
+        <button class="nav-link text-bg-dark" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Tier 4</button>
+        <button class="nav-link text-bg-dark" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Tier 5</button>
     </div>
 
 
-    <div class="tab-content col-3" id="v-pills-tabContent">
-        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
+    <div class="tab-content col-4" id="v-pills-tabContent">
+        <div class="tab-pane fade show justify-content-end active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
             <div class="form-check">
-                <i class="fa fa-check"></i>This
+                <i class="fa fa-check"></i> This
             </div>
             <div class="form-check">
-                <i class="fa fa-check"></i>is
+                <i class="fa fa-check"></i> is
             </div>
             <div class="form-check">
-                <i class="fa fa-check"></i>an
+                <i class="fa fa-check"></i> an
             </div>
             <div class="form-check">
-                <i class="fa fa-check"></i>example
+                <i class="fa fa-check"></i> example
             </div>
             <div class="form-check">
-                <i class="fa fa-check"></i>for
+                <i class="fa fa-check"></i> for
             </div>
             <div class="form-check">
-                <i class="fa fa-check"></i>the
+                <i class="fa fa-check"></i> the
             </div>
             <div class="form-check">
-                <i class="fa fa-check"></i>rewards
+                <i class="fa fa-check"></i> rewards
             </div>
 
             <!--Fund button-->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-            Open Modal
-        </button>
+            <div class="row">
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#myModal">
+                    Fund
+                </button>
+            </div>
+               
 
 
         <!-- Modal -->
-        <div class="modal fade" id="myModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
 
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <h4 class="modal-title">Modal Title</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Tier #</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
 
-                    <!-- Modal Body -->
-                    <div class="modal-body">
-                        <p>This is the modal content.</p>
-                    </div>
+                        <!-- Modal Body -->
+                        <div class="modal-body">
+                            <p>Are you sure you want to fund this project?</p>
+                        </div>
 
-                    <!-- Modal Footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Fund</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
             <div class="form-check">

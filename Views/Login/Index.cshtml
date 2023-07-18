@@ -1,0 +1,60 @@
+﻿@model Inveasy.Views.Home.projectModel
+@{
+    ViewData["Title"] = "Login | Inveasy";
+}
+
+<br />
+<section class="h-100 bg-dark">
+    <div class="container py-2 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card card-registration my-4">
+                    <div class="row g-0">
+                        <div class="col-xl-6 d-none d-xl-block">
+                            <img src="~/images/logo.png"
+                                 alt="Sample photo" class="img-fluid"
+                                 style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem; margin: 95px 10px;" />
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card-body p-md-5 text-black">
+                                <h3 class="mb-5 text-uppercase">Welcome back!</h3>
+
+                                    <div class="d-flex mb-4">
+                                        <div class="form-outline mb-4">
+                                            <input type="email" id="myInput" placeholder="Email" class="form-control form-control-lg" />
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mb-4">
+                                        <div class="form-outline mb-4">
+                                            <input type="password" id="myInput" placeholder="Password" class="form-control form-control-lg" />
+                                            <br />
+                                            <input type="checkbox" onclick="myFunction()">  Show Password
+                                        </div>
+                                    </div>
+
+                                <div class="d-flex justify-content-end pt-3">
+                                    <button type="button" class="btn btn-dark btn-lg ms-2">Login</button>
+                                </div>
+
+                                <div class="d-flex justify-content-end pt-3">
+                                    <h6>Don't have an account? <a class="text-secondary" asp-controller="Signup" asp-action="Index">Sign Up now</a></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("myInput");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>

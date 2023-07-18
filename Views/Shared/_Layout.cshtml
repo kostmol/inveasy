@@ -18,6 +18,7 @@
 <body>
     <nav class="navbar navbar-dark justify-content-between bg-dark sticky-top ">
         
+        <!-- sidenav toggle -->
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -28,7 +29,8 @@
         <span class="navbar-text">
 
         </span>
-
+            
+            <!-- sidenav -->
             <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
                     <h3 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Inveasy</h3>
@@ -82,41 +84,18 @@
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Username
                             </a>
-                        <ul class="dropdown-menu dropdown-menu-dark" id="side">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <ul class="dropdown-menu dropdown-menu-dark" id="side">
+                            <li><a class="dropdown-item" asp-controller="Profile" asp-action="Index">Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">My projects</a></li>
+                            <li><a class="dropdown-item" asp-controller="UserProjects" asp-action="Index">My projects</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" asp-controller="CreateProject" asp-action="Index">Create Project</a></li>
+                            <li><a class="dropdown-item" asp-controller="UserFunded" asp-action="Index">My Funded projects</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-controller="CreateProject" asp-action="Index">Create Project</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Log out</a>
-                        </li>
-                        <li class="nav-item">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Launch demo modal
-                        </button>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ...
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        <a class="nav-link" asp-controller="Login" asp-action="Index">Log out</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link active" aria-current="page" asp-controller="Admin" asp-action="Index">Admin</a>
@@ -126,6 +105,7 @@
                 </div>
             </div>
 
+            <!-- logo -->
             <a asp-controller="Home" asp-action="Index" class="navbar-brand">
                 &ensp;
                 <img src="~/images/logo_d2.png" class="d-inline-block  align-text-top" style="height:100px; width:160px; border:none;" alt="CoolBrand">
@@ -135,6 +115,7 @@
 
         </span>
             
+            <!-- search bar -->
             <form class="d-flex mt-3" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <a asp-controller="Search" asp-action="Index" class="btn btn-outline-light" type="submit">Search</a>
