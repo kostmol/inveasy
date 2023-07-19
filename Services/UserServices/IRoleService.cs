@@ -4,13 +4,10 @@ namespace Inveasy.Services.UserServices
 {
     public interface IRoleService
     {
-        public interface IRoleService
-        {
-            string StatusMessage { get; }
+        string StatusMessage { get; }
 
-            Task<Role> GetRoleAsync(int roleId);
-            Task<Role> GetRoleAsync(string roleName);
-            Task<List<Role>> GetRolesAsync();
-        }
+        Task<Role> GetRoleAsync(int roleId);
+        Task<Role> GetRoleAsync(string roleName);
+        Task<List<Role>> GetRolesAsync();
     }
 }

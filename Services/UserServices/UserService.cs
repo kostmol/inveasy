@@ -67,7 +67,7 @@ namespace Inveasy.Services.UserServices
             try
             {
                 // Check if user exists
-                if (_context.User.Any(d => d.Id == user.Id))
+                if (_context.User.Any(d => d.Username == user.Username))
                 {
                     StatusMessage = _status.WarningAddStatus($"User {user.Username} already exists in database");
                     return true;
@@ -115,42 +115,42 @@ namespace Inveasy.Services.UserServices
                 List<string> updatedFields = new List<string>();
 
                 // Update user and save changes
-                if (updatedUser.Username != null)
+                if (updatedUser.Username != userToUpdate.Username)
                 {
                     userToUpdate.Username = updatedUser.Username;
                     updatedFields.Add("username");
                 }
-                if (updatedUser.Password != null)
+                if (updatedUser.Password != userToUpdate.Password)
                 {
                     userToUpdate.Password = updatedUser.Password;
                     updatedFields.Add("password");
                 }
-                if (updatedUser.Email != null)
+                if (updatedUser.Email != userToUpdate.Email)
                 {
                     userToUpdate.Email = updatedUser.Email;
                     updatedFields.Add("email");
                 }
-                if (updatedUser.Name != null)
+                if (updatedUser.Name != userToUpdate.Name)
                 {
                     userToUpdate.Name = updatedUser.Name;
                     updatedFields.Add("name");
                 }
-                if (updatedUser.Surname != null)
+                if (updatedUser.Surname != userToUpdate.Surname)
                 {
                     userToUpdate.Surname = updatedUser.Surname;
                     updatedFields.Add("surname");
                 }
-                if (updatedUser.Birthday != default)
+                if (updatedUser.Birthday != userToUpdate.Birthday)
                 {
                     userToUpdate.Birthday = updatedUser.Birthday;
                     updatedFields.Add("birthday");
                 }
-                if (updatedUser.Roles != null)
+                if (updatedUser.Roles != userToUpdate.Roles)
                 {
                     userToUpdate.Roles = updatedUser.Roles;
                     updatedFields.Add("roles");
                 }
-                if (updatedUser.Image != null)
+                if (updatedUser.Image != userToUpdate.Image)
                 {
                     userToUpdate.Image = updatedUser.Image;
                     updatedFields.Add("image");
@@ -195,6 +195,7 @@ namespace Inveasy.Services.UserServices
                 // Update user and save changes                
                 _context.User.Remove(userToDelete);
                 await _context.SaveChangesAsync();
+                StatusMessage = _status.SuccessDeleteStatus(userToDelete.Username);
                 return true;
             }
             catch (Exception ex)

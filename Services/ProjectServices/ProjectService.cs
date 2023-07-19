@@ -144,42 +144,42 @@ namespace Inveasy.Services.ProjectServices
                 List<string> updatedFields = new List<string>();
 
                 // Update project and save changes                
-                if (updatedProject.Name != null)
+                if (updatedProject.Name != projectToUpdate.Name)
                 {
                     projectToUpdate.Name = updatedProject.Name;
                     updatedFields.Add("name");
                 }
-                if (updatedProject.Description != null)
+                if (updatedProject.Description != projectToUpdate.Description)
                 {
                     projectToUpdate.Description = updatedProject.Description;
                     updatedFields.Add("description");
                 }
-                if (updatedProject.FundAmount != 0)
+                if (updatedProject.FundAmount != projectToUpdate.FundAmount)
                 {
                     projectToUpdate.FundAmount = updatedProject.FundAmount;
                     updatedFields.Add("fundAmount");
                 }
-                if (updatedProject.FundGoal != null)
+                if (updatedProject.FundGoal != projectToUpdate.FundGoal)
                 {
                     projectToUpdate.FundGoal = updatedProject.FundGoal;
                     updatedFields.Add("fundGoal");
                 }
-                if (updatedProject.TrendingScore != null)
+                if (updatedProject.TrendingScore != projectToUpdate.TrendingScore)
                 {
                     projectToUpdate.TrendingScore = updatedProject.TrendingScore;
                     updatedFields.Add("trendingScore");
                 }
-                if (updatedProject.RewardsTier != null)
+                if (updatedProject.RewardsTier != projectToUpdate.RewardsTier)
                 {
                     projectToUpdate.RewardsTier = updatedProject.RewardsTier;
                     updatedFields.Add("rewardTier");
                 }
-                if (updatedProject.Categories != null)
+                if (updatedProject.Categories != projectToUpdate.Categories)
                 {
                     projectToUpdate.Categories = updatedProject.Categories;
                     updatedFields.Add("categories");
                 }
-                if (updatedProject.Images != null)
+                if (updatedProject.Images != projectToUpdate.Images)
                 {
                     projectToUpdate.Images = updatedProject.Images;
                     updatedFields.Add("images");

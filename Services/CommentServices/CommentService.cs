@@ -193,7 +193,7 @@ namespace Inveasy.Services.CommentServices
                 }
 
                 // Update project and save changes
-                if (updatedComment.Text != null) commentToUpdate.Text = updatedComment.Text;
+                if (updatedComment.Text != updatedComment.Text) commentToUpdate.Text = updatedComment.Text;
                 await _context.SaveChangesAsync();
                 StatusMessage = _status.SuccessUpdateStatus(updatedComment.Text);
                 return true;
