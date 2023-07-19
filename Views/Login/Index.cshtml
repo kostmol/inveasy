@@ -1,5 +1,4 @@
-﻿@model Inveasy.Views.Home.projectModel
-@{
+﻿@{
     ViewData["Title"] = "Login | Inveasy";
 }
 
@@ -15,26 +14,25 @@
                                 alt="Sample photo" class="img-fluid"
                                 style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem; margin: 95px 10px;" />
                         </div>
-                        <form class="needs-validation col-6" novalidate>
+                        <form class="needs-validation col-6" novalidate asp-action="Login" method="post">
                             <div class="card-body p-md-5 text-black">
                                 <h3 class="mb-5 text-uppercase">Welcome back!</h3>
-
-                                <div class="row mb-4">
-                                    <div class="form-outline form-floating mb-4">
-                                        <input type="email" id="floatingInput" class="form-control form-control-lg" placeholder="name@example.com" required />
-                                        <label for="floatingInput">Email</label>
-                                    </div>
+                            <div class="row mb-4">
+                                <div class="form-outline form-floating mb-4">
+                                    <input type="text" id="floatingInput" name="username" class="form-control form-control-lg" placeholder="Username" required />
+                                    <label for="floatingInput">Username</label>
+                                </div>
                                 </div>
                                 <div class="row mb-4">
                                     <div class="form-outline form-floating mb-4">
                                         <input type="password" id="floatingInput" placeholder="Password" class="form-control form-control-lg" required />
                                         <label for="floatingInput">Enter password</label>
-                                        <input type="checkbox" onclick="PassShow()">  Show Password
+                                        @* <input type="checkbox" onclick="PassShow()">  Show Password *@
                                     </div>
                                 </div>
 
                                 <div class="d-flex justify-content-end pt-3">
-                                    <button type="submit" class="btn btn-dark btn-lg ms-2" asp-controller="Home" asp-action="Index">Login</button>
+                                    <button type="submit" class="btn btn-dark btn-lg ms-2">Login</button>
                                 </div>
 
                                 <div class="d-flex justify-content-end pt-3">
