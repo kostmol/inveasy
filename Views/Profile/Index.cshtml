@@ -1,0 +1,172 @@
+﻿@model User
+
+@{
+    ViewData["Title"] = "Index";
+    
+    var projects = new Project[2];
+    projects[0] = new Project { Id = 1, Name = "TestProject1", Description = "Description1", FundGoal = 2000, FundAmount = 1200 };
+    projects[1] = new Project { Id = 2, Name = "TestProject2", Description = "Description2", FundGoal = 1500, FundAmount = 1500 };
+
+    string BarStyle(double current, double goal)
+    {
+        double percentage = 0;
+        if (goal > 0)
+        {
+            percentage = current / goal * 100;
+        }
+        
+        return percentage >= 100 ? "bg-success" : 
+            percentage < 50 ? "bg-danger" : "bg-warning";
+    }
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <center>
+                                <h4>Profile Details</h4>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <center>
+                                <img src="assets/profile.jpg" id="avatar" class="avatar"/>
+                                <input hidden type="file" id="attachment" accept="image/png, image/jpeg"/>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Username" class="control-label"></label>
+                                <input asp-for="Username" class="form-control" value="@ViewData["Username"]"/>
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" class="form-control" value="@ViewData["FirstName"]"/>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Surname" class="control-label"></label>
+                                <input asp-for="Surname" class="form-control" value="@ViewData["LastName"]"/>
+                                <span asp-validation-for="Surname" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label"></label>
+                                <input asp-for="Email" class="form-control" value="@ViewData["Email"]"/>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password" class="control-label"></label>
+                                <input asp-for="Password" class="form-control"/>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="checkboxDropdown">Select Options:</label>
+                                <div class="dropdown" id="checkboxDropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Select Options
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="option1" id="checkboxOption1">
+                                            <label class="form-check-label" for="checkboxOption1">
+                                                Option 1
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="option2" id="checkboxOption2">
+                                            <label class="form-check-label" for="checkboxOption2">
+                                                Option 2
+                                            </label>
+                                        </div>
+                                        <!-- Add more checkbox items as needed -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <br/>
+                            <button ID="Button3" class="btn btn-lg btn-block btn-primary" runat="server" Text="Update">Αποθήκευση</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <center><h4>Project List</h4></center>
+                            <span style="text-align: right">
+                                <input type="text" onInput="searchHandler()" id="searchField" name="SearchString" placeholder="Search .."/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            @foreach (var project in (projects))
+                            {
+                            <div class="project card mb-3">
+                                <img class="card-img-top" height="400px" src="assets/banner.jpg" alt="project banner">
+                                <div class="card-body">
+                                    <h5 class="card-title">@project.Name</h5>
+                                    <p class="card-text">@project.Description</p>
+                                    <p class="card-text"><small class="text-muted">Last fund: 3 mins ago</small></p>
+
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated @BarStyle(project.FundAmount, project.FundGoal ?? 0)" role="progressbar" aria-valuenow=@project.FundAmount aria-valuemin="0" aria-valuemax=@project.FundGoal style="width: @(100* @project.FundAmount/@project.FundGoal)%"></div>
+                                    </div>
+
+                                    <div class="comments">
+                                        <p>This is a comment</p>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function searchHandler() {
+        let projects = document.querySelectorAll('.project');
+        
+        let search_query = document.getElementById("searchField").value;
+        projects.forEach((project) => {
+            if (project.innerText.toLowerCase().includes(search_query.toLowerCase())) {
+                project.classList.remove("is-hidden");
+            }
+            else {
+                project.classList.add("is-hidden");
+            }
+        })
+    }
+</script>

@@ -23,7 +23,7 @@ namespace Inveasy.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.User != null ? 
-                          View(await _context.User.ToListAsync()) :
+                          View(await _context.User.Include(i => i.Roles).ToListAsync()) :
                           Problem("Entity set 'InveasyContext.User'  is null.");
         }
 

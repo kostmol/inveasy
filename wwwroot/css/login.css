@@ -1,0 +1,26 @@
+﻿.card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: .75em;
+    padding-right: .75em;
+}
+
+.card-registration .select-arrow {
+    top: 13px;
+}
+input[type=radio] {
+    accent-color: black;
+}
+
+.wrong .fa-check {
+    display: none;
+}
+
+.good .fa-times {
+    display: none;
+}
+
+.valid-feedback,
+.invalid-feedback {
+    margin-left: calc(2em + 0.25rem + 1.5rem);
+}

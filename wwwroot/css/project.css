@@ -1,0 +1,31 @@
+﻿body {
+}
+
+.form-check, .nav-pills {
+    font-size: 20px;
+}
+
+.form-check, .nav-pills button{
+    margin: 10px 0px;
+}
+
+#creatorUpdate {
+    margin: 10px 0px;
+}
+
+#flexCheckChecked {
+    background-color: darkgray;
+    border-color:darkgray;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2000;
+    display: none;
+    overflow: hidden;
+    outline: 0;
+}

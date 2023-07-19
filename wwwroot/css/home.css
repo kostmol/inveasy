@@ -1,0 +1,10 @@
+﻿body {
+}
+
+.col h3, .col h4{
+    color:darkslategray;
+}
+
+.row{
+    margin: 10px;
+}
