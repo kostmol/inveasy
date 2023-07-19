@@ -42,7 +42,8 @@ namespace Inveasy.Services.UserServices
                 ?.Include(u => u.Roles)
                 ?.Include(i => i.Views)
                 ?.Include(p => p.Comments).ThenInclude(o => o.Project)
-                ?.Include(t => t.Donations).ThenInclude(o => o.Project)
+                ?.Include(t => t.Donations).ThenInclude(q => q.Project)
+                ?.Include(d => d.Image)
                 .ToListAsync();
             }
             catch (Exception ex)
@@ -148,6 +149,11 @@ namespace Inveasy.Services.UserServices
                 {
                     userToUpdate.Roles = updatedUser.Roles;
                     updatedFields.Add("roles");
+                }
+                if (updatedUser.Image != null)
+                {
+                    userToUpdate.Image = updatedUser.Image;
+                    updatedFields.Add("image");
                 }
 
                 await _context.SaveChangesAsync();

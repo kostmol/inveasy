@@ -76,6 +76,7 @@ namespace Inveasy.Services.ProjectServices
                     ?.Include(i => i.Views).ThenInclude(ο => ο.User)
                     ?.Include(p => p.Comments).ThenInclude(x => x.User)
                     ?.Include(t => t.Donations).ThenInclude(z => z.User)
+                    ?.Include(u => u.Images)
                     .ToListAsync();
             }
             catch (Exception ex)
@@ -177,6 +178,11 @@ namespace Inveasy.Services.ProjectServices
                 {
                     projectToUpdate.Categories = updatedProject.Categories;
                     updatedFields.Add("categories");
+                }
+                if (updatedProject.Images != null)
+                {
+                    projectToUpdate.Images = updatedProject.Images;
+                    updatedFields.Add("images");
                 }
 
                 await _context.SaveChangesAsync();
