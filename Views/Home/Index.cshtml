@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Inveasy | Home";
+    ViewData["Title"] = "Home | Inveasy";
 }
 
 <div class=" container-fluid text-center">
@@ -36,7 +36,7 @@
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                         <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                        <a asp-controller="Project" asp-action="Index" class="btn btn-dark">See more...</a>
+                        <a asp-controller="Project" asp-action="Index" class="btn btn-dark stretched-link">See more...</a>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,18 @@
 
     <hr />
 
-    <h5 class="d-flex justify-content-start dark-grey-500">Popular Projects</h5>
+    <div class="container">
+        <div class="row">
+            <div class="col d-flex justify-content-start">
+                <h5 class=" dark-grey-500">Popular Projects</h5>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <a asp-controller="Popularity" asp-action="Index" class="btn btn-dark link">See more...</a>
+            </div>
+        </div>
+    </div>
+
+
     <div class="row row-cols-1 row-cols-md-4 g-4">
         <div class="col">
             <div class="card">
@@ -53,7 +64,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <button href="#" class="btn btn-dark">See more...</button>
+                    <button href="#" class="btn btn-dark stretched-link">See more...</button>
                 </div>
             </div>
         </div>
@@ -63,7 +74,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <button href="#" class="btn btn-dark">See more...</button>
+                    <button href="#" class="btn btn-dark stretched-link">See more...</button>
                 </div>
             </div>
         </div>
@@ -73,7 +84,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                    <button href="#" class="btn btn-dark">See more...</button>
+                    <button href="#" class="btn btn-dark stretched-link">See more...</button>
                 </div>
             </div>
         </div>
@@ -83,7 +94,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <button href="#" class="btn btn-dark">See more...</button>
+                    <button href="#" class="btn btn-dark stretched-link">See more...</button>
                 </div>
             </div>
         </div>

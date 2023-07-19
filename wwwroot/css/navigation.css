@@ -20,30 +20,16 @@ a {
     color: #818181;
 }
 
-.sidenav {
-    height: 100%;
-    z-index: 2;
-    width: 0;
-    position: fixed;
-    top: 70px;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.9);
-    overflow-x: hidden;
-    overflow-y: scroll;
-    transition: 0.5s;
-    padding-top: 60px;
-    padding-bottom: 40px;
+.nav form a{
+    margin-right:5px;
+    color:red;
 }
 
-.sidenav::-webkit-scrollbar {
-    display: none;
-}
-
-.sidenav a, .dropdown-btn {
+#side a, #side dropdown-item {
     color: #818181;
-    padding: 15px 8px 15px 25px;
+    padding: 1px 5px 1px 25px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 15px;
     display: block;
     border: none;
     background: none;
@@ -53,7 +39,7 @@ a {
     outline: none;
 }
 .drodown-item a{
-    color: red;
+    color: #818181;
     padding: 15px 8px 15px 25px;
     text-decoration: none;
     font-size: 15px;
@@ -95,13 +81,9 @@ a {
 }
 
 @media screen and (max-height: 450px) {
-    .sidenav {
-        padding-top: 15px;
+    .sidenav a {
+        font-size: 18px;
     }
-
-        .sidenav a {
-            font-size: 18px;
-        }
 
     .search-container {
         float: none;
@@ -140,3 +122,4 @@ a {
 .navbar form button {
     margin-right:10px;
 }
+
