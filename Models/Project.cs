@@ -16,5 +16,7 @@ namespace Inveasy.Models
         public virtual List<Comment>? Comments { get; set; }
         public virtual List<Donation>? Donations { get; set; }
         public virtual List<RewardTier>? RewardsTier { get; set; }
+        public virtual DateTime CreatedDate { set; get; }
+        public ICollection<Image> Images { get; set; } = new List<Image>();
     }
 }

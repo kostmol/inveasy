@@ -3,16 +3,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Inveasy.Data;
 using Inveasy.Services;
 using Inveasy.Controllers;
+using Inveasy.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<InveasyContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("InveasyContext") ?? throw new InvalidOperationException("Connection string 'InveasyContext' not found.")));
 
+// Add db services
+builder.Services.AddDatabaseServices();
+
+// Add service for status messages
+builder.Services.AddStatusServices();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-// Add service for users
-//builder.Services.AddScoped<UsersService>();
 
 var app = builder.Build();
 

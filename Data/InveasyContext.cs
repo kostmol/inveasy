@@ -23,6 +23,7 @@ namespace Inveasy.Data
         public DbSet<Role> Role { get; set; } = default!;
         public DbSet<View> View { get; set; } = default!;
         public DbSet<Comment> Comment { get; set; } = default!;
+        public DbSet<Image> Image { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
