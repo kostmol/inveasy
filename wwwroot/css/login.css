@@ -11,3 +11,16 @@
 input[type=radio] {
     accent-color: black;
 }
+
+.wrong .fa-check {
+    display: none;
+}
+
+.good .fa-times {
+    display: none;
+}
+
+.valid-feedback,
+.invalid-feedback {
+    margin-left: calc(2em + 0.25rem + 1.5rem);
+}

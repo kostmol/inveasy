@@ -10,37 +10,38 @@
             <div class="col">
                 <div class="card card-registration my-4">
                     <div class="row g-0">
-                        <div class="col-xl-6 d-none d-xl-block">
+                        <div class="col-6 d-xl-block">
                             <img src="~/images/logo.png"
-                                 alt="Sample photo" class="img-fluid"
-                                 style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem; margin: 95px 10px;" />
+                                alt="Sample photo" class="img-fluid"
+                                style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem; margin: 95px 10px;" />
                         </div>
-                        <div class="col-xl-6">
+                        <form class="needs-validation col-6" novalidate>
                             <div class="card-body p-md-5 text-black">
                                 <h3 class="mb-5 text-uppercase">Welcome back!</h3>
 
-                                    <div class="d-flex mb-4">
-                                        <div class="form-outline mb-4">
-                                            <input type="email" id="myInput" placeholder="Email" class="form-control form-control-lg" />
-                                        </div>
+                                <div class="row mb-4">
+                                    <div class="form-outline form-floating mb-4">
+                                        <input type="email" id="floatingInput" class="form-control form-control-lg" placeholder="name@example.com" required />
+                                        <label for="floatingInput">Email</label>
                                     </div>
-                                    <div class="d-flex mb-4">
-                                        <div class="form-outline mb-4">
-                                            <input type="password" id="myInput" placeholder="Password" class="form-control form-control-lg" />
-                                            <br />
-                                            <input type="checkbox" onclick="myFunction()">  Show Password
-                                        </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="form-outline form-floating mb-4">
+                                        <input type="password" id="floatingInput" placeholder="Password" class="form-control form-control-lg" required />
+                                        <label for="floatingInput">Enter password</label>
+                                        <input type="checkbox" onclick="PassShow()">  Show Password
                                     </div>
+                                </div>
 
                                 <div class="d-flex justify-content-end pt-3">
-                                    <button type="button" class="btn btn-dark btn-lg ms-2">Login</button>
+                                    <button type="submit" class="btn btn-dark btn-lg ms-2" asp-controller="Home" asp-action="Index">Login</button>
                                 </div>
 
                                 <div class="d-flex justify-content-end pt-3">
                                     <h6>Don't have an account? <a class="text-secondary" asp-controller="Signup" asp-action="Index">Sign Up now</a></h6>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -57,4 +58,25 @@
             x.type = "password";
         }
     }
+</script>
+
+<script>
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
 </script>

@@ -13,42 +13,63 @@
                         <div class="col-xl-6 d-none d-xl-block">
                             <img src="~/images/logo.png"
                                  alt="Sample photo" class="img-fluid"
-                                 style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem; margin: 95px 10px;" />
+                                 style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem; margin: 135px 10px;" />
                         </div>
-                        <div class="col-xl-6">
+                        <form class="needs-validation col-xl-6" novalidate>
                             <div class="card-body p-md-5 text-black">
                                 <h3 class="mb-5 text-uppercase">Registration form</h3>
 
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
-                                        <div class="form-outline">
-                                            <input type="text" id="myInput" placeholder="First Name" class="form-control form-control-lg" required />
+                                        <div class="form-outline form-floating">
+                                            <input type="text" id="floatingInput" placeholder="First Name" class="form-control form-control-lg" required />
+                                            <label for="floatingInput">First Name</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">
-                                        <div class="form-outline">
-                                            <input type="text" id="myInput" placeholder="Last Name" class="form-control form-control-lg" />
+                                        <div class="form-outline form-floating">
+                                            <input type="text" id="floatingInput" placeholder="Last Name" class="form-control form-control-lg" required />
+                                            <label for="floatingInput">Last Name</label>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
-                                        <div class="form-outline mb-4">
-                                            <input type="text" id="myInput" placeholder="Username" class="form-control form-control-lg" />
+                                        <div class="form-outline form-floating mb-4">
+                                            <input type="text" id="floatingInput" placeholder="Username" class="form-control form-control-lg" required />
+                                            <label for="floatingInput">Username</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4">
-                                        <div class="form-outline mb-4">
-                                            <input type="password" id="myInput" placeholder="Password" class="form-control form-control-lg" />
-                                            <input type="checkbox" onclick="myFunction()">  Show Password
+                                        <div class="form-outline form-floating mb-4">
+                                            <input type="password" id="floatingInput" placeholder="Password" class="form-control form-control-lg" required />
+                                            <i class="bi bi-eye-slash" id="togglePassword"></i>
+                                            <label for="floatingInput">Password (more than 6 chars)</label>
+                                            <input type="checkbox" onclick="PassShow()">  Show Password
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline form-floating mb-4">
+                                            <input type="date" id="floatingInput" placeholder="Birthday" class="form-control form-control-lg" required />
+                                            <label for="floatingInput">Birthday</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline form-floating mb-4">
+                                            <input type="password" id="floatingInput" placeholder="Password" class="form-control form-control-lg" required />
+                                            <label for="floatingInput">Confirm password</label>
+                                            <input type="checkbox" onclick="PassShow()">  Show Password
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-outline mb-4">
-                                        <input type="email" id="myInput" placeholder="Email" class="form-control form-control-lg" />
+                                    <div class="form-outline form-floating mb-4">
+                                        <input type="email" id="floatingInput" class="form-control form-control-lg" placeholder="name@example.com" required/>
+                                        <label for="floatingInput">Email</label>
                                     </div>
                                 </div>
 
@@ -59,7 +80,7 @@
 
                                         <div class="form-check form-check-inline mb-0 me-4">
                                             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
-                                                   value="option1" />
+                                                   value="option1" required />
                                             <label class="form-check-label " for="femaleGender">Female</label>
                                         </div>
 
@@ -78,8 +99,18 @@
                                     </div>
                                 </div>
 
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                    <label class="form-check-label" for="invalidCheck">
+                                        Agree to terms and conditions
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        You must agree before submitting.
+                                    </div>
+                                </div>
+
                                 <div class="d-flex justify-content-end pt-3">
-                                    <button type="button" class="btn btn-dark btn-lg ms-2">Register</button>
+                                    <button type="submit" class="btn btn-dark btn-lg ms-2" asp-controller="Home" asp-action="Index">Register</button>
                                 </div>
 
                                 <div class="d-flex justify-content-end pt-3">
@@ -87,7 +118,7 @@
                                 </div>
 
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -96,12 +127,164 @@
 </section>
 
 <script>
-    function myFunction() {
-        var x = document.getElementById("myInput");
+    function PassShow() {
+        var x = document.getElementById("floatingInput");
         if (x.type === "password") {
             x.type = "text";
         } else {
             x.type = "password";
         }
     }
+</script>
+
+<script>
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#floatingInput");
+
+    togglePassword.addEventListener("click", function () {
+        // toggle the type attribute
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+
+        // toggle the icon
+        this.classList.toggle("bi-eye");
+    });
+
+    // prevent form submit
+    const form = document.querySelector("form");
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+    });
+</script>
+
+<script>
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+
+<script>
+    addEventListener("DOMContentLoaded", (event) => {
+        const password = document.getElementById("floatingInput");
+    const passwordAlert = document.getElementById("password-alert");
+    const requirements = document.querySelectorAll(".requirements");
+    let lengBoolean, bigLetterBoolean, numBoolean, specialCharBoolean;
+    let leng = document.querySelector(".leng");
+    let bigLetter = document.querySelector(".big-letter");
+    let num = document.querySelector(".num");
+    let specialChar = document.querySelector(".special-char");
+    const specialChars = "!@@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~";
+    const numbers = "0123456789";
+
+    requirements.forEach((element) => element.classList.add("wrong"));
+
+    password.addEventListener("focus", () => {
+        passwordAlert.classList.remove("d-none");
+        if (!password.classList.contains("is-valid")) {
+            password.classList.add("is-invalid");
+        }
+    });
+
+    password.addEventListener("input", () => {
+        let value = password.value;
+        if (value.length < 5) {
+            lengBoolean = false;
+        } else if (value.length > 7) {
+            lengBoolean = true;
+        }
+
+        if (value.toLowerCase() == value) {
+            bigLetterBoolean = false;
+        } else {
+            bigLetterBoolean = true;
+        }
+
+        numBoolean = false;
+        for (let i = 0; i < value.length; i++) {
+            for (let j = 0; j < numbers.length; j++) {
+                if (value[i] == numbers[j]) {
+                    numBoolean = true;
+                }
+            }
+        }
+
+        specialCharBoolean = false;
+        for (let i = 0; i < value.length; i++) {
+            for (let j = 0; j < specialChars.length; j++) {
+                if (value[i] == specialChars[j]) {
+                    specialCharBoolean = true;
+                }
+            }
+        }
+
+        if (lengBoolean == true && bigLetterBoolean == true && numBoolean == true && specialCharBoolean == true) {
+            password.classList.remove("is-invalid");
+            password.classList.add("is-valid");
+
+            requirements.forEach((element) => {
+                element.classList.remove("wrong");
+                element.classList.add("good");
+            });
+            passwordAlert.classList.remove("alert-warning");
+            passwordAlert.classList.add("alert-success");
+        } else {
+            password.classList.remove("is-valid");
+            password.classList.add("is-invalid");
+
+            passwordAlert.classList.add("alert-warning");
+            passwordAlert.classList.remove("alert-success");
+
+            if (lengBoolean == false) {
+                leng.classList.add("wrong");
+                leng.classList.remove("good");
+            } else {
+                leng.classList.add("good");
+                leng.classList.remove("wrong");
+            }
+
+            if (bigLetterBoolean == false) {
+                bigLetter.classList.add("wrong");
+                bigLetter.classList.remove("good");
+            } else {
+                bigLetter.classList.add("good");
+                bigLetter.classList.remove("wrong");
+            }
+
+            if (numBoolean == false) {
+                num.classList.add("wrong");
+                num.classList.remove("good");
+            } else {
+                num.classList.add("good");
+                num.classList.remove("wrong");
+            }
+
+            if (specialCharBoolean == false) {
+                specialChar.classList.add("wrong");
+                specialChar.classList.remove("good");
+            } else {
+                specialChar.classList.add("good");
+                specialChar.classList.remove("wrong");
+            }
+        }
+    });
+
+    password.addEventListener("blur", () => {
+        passwordAlert.classList.add("d-none");
+    });
+});
 </script>
