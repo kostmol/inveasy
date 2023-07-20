@@ -46,8 +46,8 @@ public class CreateProjectController : Controller
         
         project.User = user;
         
-        _projectService.AddProjectAsync(project);
-
-        return RedirectToAction("Index", "Project");
+        await _projectService.AddProjectAsync(project);
+        
+        return RedirectToAction("Index", "UserProjects");
     }
 }
