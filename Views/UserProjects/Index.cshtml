@@ -1,6 +1,7 @@
-﻿@model Inveasy.Views.Home.projectModel
+﻿@model List<Project>
 @{
     ViewData["Title"] = "My Projects | Inveasy";
+    List<Project> Projects = ViewData["projects"] as List<Project>;
 }
 
 <hr />
@@ -8,46 +9,49 @@
 <hr />
 
 <div class="row row-cols-1 row-cols-md-4 g-4">
-    <div class="col">
-        <div class="card">
-            <img src="~/images/default_pic.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <button href="#" class="btn btn-dark">See more...</button>
+    @foreach (var project in Projects)
+    {
+        <div class="col">
+            <div class="card">
+                <img src="~/images/default_pic.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@project.Name</h5>
+                    <p class="card-text">@project.Description</p>
+                        <a asp-controller="Project" asp-action="Details" asp-route-id=@project.Id class="btn btn-dark">See more</a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col">
-        <div class="card">
-            <img src="~/images/default_pic.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <button href="#" class="btn btn-dark">See more...</button>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card">
-            <img src="~/images/default_pic.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                <button href="#" class="btn btn-dark">See more...</button>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card">
-            <img src="~/images/default_pic.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <button href="#" class="btn btn-dark">See more...</button>
-            </div>
-        </div>
-    </div>
+    }
+    @* <div class="col"> *@
+    @*     <div class="card"> *@
+    @*         <img src="~/images/default_pic.jpg" class="card-img-top" alt="..."> *@
+    @*         <div class="card-body"> *@
+    @*             <h5 class="card-title">Card title</h5> *@
+    @*             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> *@
+    @*             <button href="#" class="btn btn-dark">See more...</button> *@
+    @*         </div> *@
+    @*     </div> *@
+    @* </div> *@
+    @* <div class="col"> *@
+    @*     <div class="card"> *@
+    @*         <img src="~/images/default_pic.jpg" class="card-img-top" alt="..."> *@
+    @*         <div class="card-body"> *@
+    @*             <h5 class="card-title">Card title</h5> *@
+    @*             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p> *@
+    @*             <button href="#" class="btn btn-dark">See more...</button> *@
+    @*         </div> *@
+    @*     </div> *@
+    @* </div> *@
+    @* <div class="col"> *@
+    @*     <div class="card"> *@
+    @*         <img src="~/images/default_pic.jpg" class="card-img-top" alt="..."> *@
+    @*         <div class="card-body"> *@
+    @*             <h5 class="card-title">Card title</h5> *@
+    @*             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> *@
+    @*             <button href="#" class="btn btn-dark">See more...</button> *@
+    @*         </div> *@
+    @*     </div> *@
+    @* </div> *@
 </div>
 
 <nav aria-label="Page navigation example">
