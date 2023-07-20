@@ -1,0 +1,106 @@
+﻿@model Inveasy.Views.Home.projectModel
+@{
+    ViewData["Title"] = "Profile | Inveasy";
+}
+
+<div class="row">
+    <br />
+    <div class="d-flex justify-content-start card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="~/images/default_pic.jpg" class="img-fluid rounded-start" alt="profile pic">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">First Name Last Name</h5>
+                    <p class="card-text text-body-secondary"><i>@@ username</i></p>
+                    <p class="card-text text-body-secondary"><i>Birthday: </i></p>
+                    <p class="card-text text-body-secondary"><i>Email: </i></p>
+                    <p class="card-text text-body-secondary"><i>Gender: </i></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+<div class="container text-center">
+    <div class="row">
+        <div class="col">
+            <div><h2><a class="dropdown-item" asp-controller="UserProjects" asp-action="Index">My Projects</a></h2></div>
+        </div>
+        <div class="col">
+            <div><h2><a class="dropdown-item" asp-controller="UserFunded" asp-action="Index">My Funded Projects</a></h2></div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="container row justify-content-between d-flex">
+<!--UserProjects-->
+<div class="col-6">
+    <div class="d-flex card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="~/images/default_pic.jpg" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                    <a asp-controller="Project" asp-action="Index" class="btn btn-dark stretched-link">See more...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-start card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="~/images/default_pic.jpg" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                    <a asp-controller="Project" asp-action="Index" class="btn btn-dark stretched-link">See more...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<!--UserFunded-->
+<div class="col-6">
+    <div class="d-flex justify-content-start card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="~/images/default_pic.jpg" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                    <a asp-controller="Project" asp-action="Index" class="btn btn-dark stretched-link">See more...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-start card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="~/images/default_pic.jpg" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                    <a asp-controller="Project" asp-action="Index" class="btn btn-dark stretched-link">See more...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
