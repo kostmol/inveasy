@@ -1,4 +1,20 @@
-﻿<!DOCTYPE html>
+﻿@using Newtonsoft.Json.Linq
+@{
+    var session = Context.Session.GetString("User");
+    string username = null;
+    var roles = new List<string>();
+
+    if (session != null)
+    {
+        var json = JObject.Parse(session);
+        username = json["Username"]?.ToString();
+        foreach (var role in json["Roles"])
+        {
+            roles.Add(role["Name"].ToString());
+        }
+    }
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,6 +27,7 @@
     <link href="~/css/navigation.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/home.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/project.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/profile.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/login.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/create.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/profile.css" rel="stylesheet" asp-append-version="true" />
@@ -40,6 +57,28 @@
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    @if (roles != null && roles.Any((role) => role == "Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" asp-controller="Admin" asp-action="Index">Admin</a>
+                        </li>
+                    }
+                    <li class="nav-item dropdown">
+                        @if (session != null){
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @username
+                            </a>
+                        }
+                        <ul class="dropdown-menu dropdown-menu-dark" id="side">
+                            <li><a class="dropdown-item" asp-controller="Profile" asp-action="Index">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" asp-controller="UserProjects" asp-action="Index">My projects</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" asp-controller="UserFunded" asp-action="Index">My Funded projects</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" asp-controller="CreateProject" asp-action="Index">Create Project</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
@@ -82,26 +121,19 @@
                             <li><a class="dropdown-item" href="#">Technology</a></li>
                         </ul>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Username
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark" id="side">
-                            <li><a class="dropdown-item" asp-controller="Profile" asp-action="Index">Profile</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" asp-controller="UserProjects" asp-action="Index">My projects</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" asp-controller="UserFunded" asp-action="Index">My Funded projects</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" asp-controller="CreateProject" asp-action="Index">Create Project</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" asp-controller="Login" asp-action="Index">Log out</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" asp-controller="Admin" asp-action="Index">Admin</a>
-                        </li>
+                        
+                        @if (session != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Login" asp-action="Logout">Log out</a>
+                            </li>
+                        }
+                        @if (session == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" asp-controller="Login" asp-action="Index">Login</a>
+                            </li>
+                        }
                     </ul>
                     
                 </div>

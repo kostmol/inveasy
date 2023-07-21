@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using System.Text.Encodings.Web;
+using Newtonsoft.Json.Linq;
 
 namespace Inveasy.Controllers
 {
@@ -7,10 +8,13 @@ namespace Inveasy.Controllers
     {
         public IActionResult Index()
         {
-            ViewData["Username"] = "Username";
-            ViewData["FirstName"] = "FirstName";
-            ViewData["LastName"] = "LastName";
-            ViewData["Email"] = "Email";
+            var session = HttpContext.Session.GetString("User");
+            var json = JObject.Parse(session);
+        
+            ViewData["Username"] = json["Username"].ToString();
+            ViewData["FirstName"] = json["Name"].ToString();
+            ViewData["LastName"] = json["Surname"].ToString();
+            ViewData["Email"] = json["Email"].ToString();
             return View();
         }
     }

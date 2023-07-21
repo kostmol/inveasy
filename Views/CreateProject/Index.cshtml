@@ -1,63 +1,69 @@
-﻿@model Inveasy.Views.Home.projectModel
+﻿@model List<Category>
 @{
     ViewData["Title"] = "Create Project | Inveasy";
+    List<Category> Categories = ViewData["categories"] as List<Category>;
 }
 
 <hr />
 <h1>Create a project</h1>
 <hr />
 
-<form id="regForm" action="">
+<form id="regForm" asp-action="Creates">
     <!-- One "tab" for each step in the form: -->
     <div class="tab">
         <h2>Name:</h2>
         <br />
-        <p><input placeholder="Project name..." oninput="this.className = ''" required></p>
-        <p><input placeholder="Description..." oninput="this.className = ''" required></p>
+        <p><input placeholder="Project name..." name="Name" required></p>
+        <p><input placeholder="Description..." name="Description" required></p>
     </div>
 
     <div class="tab">
         <h2>Category:</h2>
         <br />
         <p>
-            <select class="form-select" aria-label="Default select example" required>
-                <option selected>Select a category</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+            <select class="form-select" aria-label="Default select example" name="CategoryId" required>
+                @foreach (var category in Categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
             </select>
         </p>
     </div>
-
+    
     <div class="tab">
         <h2>Add Tier:</h2>
-        <p><input type="number" placeholder="Amount" oninput="this.className = ''"></p>
-        <p><input type="text" placeholder="Reward" oninput="this.className = ''"></p>
+        <p><input type="number" placeholder="Goal" name="FundGoal"></p>
     </div>
-
+    
     <div class="tab">
         <h2>Add Tier:</h2>
-        <p><input type="number" placeholder="Amount" oninput="this.className = ''"></p>
-        <p><input type="text" placeholder="Reward" oninput="this.className = ''"></p>
+        <p><input type="text" placeholder="Name" name="RewardName"></p>
+        <p><input type="text" placeholder="Reward" name="RewardDescription"></p>
     </div>
 
-    <div class="tab">
-        <h2>Add Tier:</h2>
-        <p><input type="number" placeholder="Amount" oninput="this.className = ''"></p>
-        <p><input type="text" placeholder="Reward" oninput="this.className = ''"></p>
-    </div>
-
-    <div class="tab">
-        <h2>Add Tier:</h2>
-        <p><input type="number" placeholder="Amount" oninput="this.className = ''"></p>
-        <p><input type="text" placeholder="Reward" oninput="this.className = ''"></p>
-    </div>
-
-    <div class="tab">
-        <h2>Add Tier:</h2>
-        <p><input type="number" placeholder="Amount" oninput="this.className = ''"></p>
-        <p><input type="text" placeholder="Reward" oninput="this.className = ''"></p>
-    </div>
+    @* <div class="tab"> *@
+    @*     <h2>Add Tier:</h2> *@
+    @*     <p><input type="number" placeholder="Amount" oninput="this.className = ''"></p> *@
+    @*     <p><input type="text" placeholder="Reward" oninput="this.className = ''"></p> *@
+    @* </div> *@
+    @* *@
+    @* <div class="tab"> *@
+    @*     <h2>Add Tier:</h2> *@
+    @*     <p><input type="number" placeholder="Amount" oninput="this.className = ''"></p> *@
+    @*     <p><input type="text" placeholder="Reward" oninput="this.className = ''"></p> *@
+    @* </div> *@
+    @* *@
+    @* <div class="tab"> *@
+    @*     <h2>Add Tier:</h2> *@
+    @*     <p><input type="number" placeholder="Amount" oninput="this.className = ''"></p> *@
+    @*     <p><input type="text" placeholder="Reward" oninput="this.className = ''"></p> *@
+    @* </div> *@
+    @* *@
+    @* <div class="tab"> *@
+    @*     <h2>Add Tier:</h2> *@
+    @*     <p><input type="number" placeholder="Amount" oninput="this.className = ''"></p> *@
+    @*     <p><input type="text" placeholder="Reward" oninput="this.className = ''"></p> *@
+    @* </div> *@
 
     <div style="overflow:auto;">
         <div style="float:right;">

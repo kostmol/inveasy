@@ -1,6 +1,18 @@
-@model Inveasy.Views.Home.projectModel
+@model Project
 @{
     ViewData["Title"] = "Project | Inveasy";
+
+    string BarStyle(double current, double goal)
+    {
+        double percentage = 0;
+        if (goal > 0)
+        {
+            percentage = current / goal * 100;
+        }
+        
+        return percentage >= 100 ? "bg-success" : 
+            percentage < 50 ? "bg-danger" : "bg-warning";
+    }
 }
 
 <div class="row">
@@ -32,17 +44,20 @@
             </div>
             <div class="col-md-8 p-2">
                 <div class="card-header d-flex justify-content-between ">
-                    <a class="text-muted link-secondary" href=""> -by Project creator</a>
-                    <a class="text-muted link-secondary" href="">Project Category</a>
+                    <a class="text-muted link-secondary" href=""> -by @Model.User.Name @Model.User.Surname</a>
+                    @* @foreach (var category in Model.Categories) *@
+                    @* { *@
+                        <a class="text-muted link-secondary" href="">Category</a>
+                    @* } *@
                 </div>
                 <hr>
                 <div class="card-body">
                     <h5 class="card-title">Project Name</h5>
-                    <p class="card-text text-muted" style="font-size:15px"><i>Amount € / Goal €</i></p>
-                    <p class="card-text">Project Descreption</p>
+                    <p class="card-text text-muted" style="font-size:15px"><i>@Model.FundAmount / @Model.FundGoal €</i></p>
+                    <p class="card-text">@Model.Description</p>
                     <p class="card-text"><small class="text-body-secondary">Goal progress:</small></p>
                     <div class="progress" role="progressbar" aria-label="Success striped example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar progress-bar-striped bg-secondary" style="width: 25%">25%</div>
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow=@Model.FundAmount aria-valuemin="0" aria-valuemax=@Model.FundGoal style="width: @(100* @Model.FundAmount/@Model.FundGoal)%"></div>
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-between">
@@ -184,18 +199,6 @@
     </div>
 
     <div class="col-5">
-        <form>
-            <div class="form-floating">
-                <textarea class="form-control mb-2" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                <label for="floatingTextarea2">Comment...</label>
-            </div>
-            <div class="row">
-                <button type="button" class="btn btn-dark">
-                    Post Comment
-                </button>
-            </div>
-        </form>
-        <br />
         <div class="card" id="creatorUpdate">
             <div class="card-header">
                 Update #
