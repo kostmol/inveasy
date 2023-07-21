@@ -110,48 +110,48 @@
             </div>
             <br>
         </div>
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <center><h4>Project List</h4></center>
-                            <span style="text-align: right">
-                                <input type="text" onInput="searchHandler()" id="searchField" name="SearchString" placeholder="Search .."/>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            @foreach (var project in (projects))
-                            {
-                            <div class="project card mb-3">
-                                <img class="card-img-top" height="400px" src="assets/banner.jpg" alt="project banner">
-                                <div class="card-body">
-                                    <h5 class="card-title">@project.Name</h5>
-                                    <p class="card-text">@project.Description</p>
-                                    <p class="card-text"><small class="text-muted">Last fund: 3 mins ago</small></p>
-
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated @BarStyle(project.FundAmount, project.FundGoal ?? 0)" role="progressbar" aria-valuenow=@project.FundAmount aria-valuemin="0" aria-valuemax=@project.FundGoal style="width: @(100* @project.FundAmount/@project.FundGoal)%"></div>
-                                    </div>
-
-                                    <div class="comments">
-                                        <p>This is a comment</p>
-                                    </div>
-                                </div>
-                            </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+@*         <div class="col-md-12"> *@
+@*             <div class="card"> *@
+@*                 <div class="card-body"> *@
+@*                     <div class="row"> *@
+@*                         <div class="col"> *@
+@*                             <center><h4>Project List</h4></center> *@
+@*                             <span style="text-align: right"> *@
+@*                                 <input type="text" onInput="searchHandler()" id="searchField" name="SearchString" placeholder="Search .."/> *@
+@*                             </span> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                     <div class="row"> *@
+@*                         <div class="col"> *@
+@*                             <hr> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                     <div class="row"> *@
+@*                         <div class="col"> *@
+@*                             @foreach (var project in (projects)) *@
+@*                             { *@
+@*                             <div class="project card mb-3"> *@
+@*                                 <img class="card-img-top" height="400px" src="assets/banner.jpg" alt="project banner"> *@
+@*                                 <div class="card-body"> *@
+@*                                     <h5 class="card-title">@project.Name</h5> *@
+@*                                     <p class="card-text">@project.Description</p> *@
+@*                                     <p class="card-text"><small class="text-muted">Last fund: 3 mins ago</small></p> *@
+@* *@
+@*                                     <div class="progress"> *@
+@*                                         <div class="progress-bar progress-bar-striped progress-bar-animated @BarStyle(project.FundAmount, project.FundGoal ?? 0)" role="progressbar" aria-valuenow=@project.FundAmount aria-valuemin="0" aria-valuemax=@project.FundGoal style="width: @(100* @project.FundAmount/@project.FundGoal)%"></div> *@
+@*                                     </div> *@
+@* *@
+@*                                     <div class="comments"> *@
+@*                                         <p>This is a comment</p> *@
+@*                                     </div> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                             } *@
+@*                         </div> *@
+@*                     </div> *@
+@*                 </div> *@
+@*             </div> *@
+@*         </div> *@
     </div>
 </div>
 
